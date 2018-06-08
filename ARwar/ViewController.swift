@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import ARKit
+
+let Debug = true
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var sceneView: ARSCNView!
+    let configuration = ARWorldTrackingConfiguration()
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (Debug) {
+            self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        }
+        self.sceneView.session.run(configuration)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
