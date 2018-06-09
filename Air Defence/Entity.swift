@@ -3,15 +3,25 @@ import SceneKit
 
 class Entity {
     
-    init(_ parentNode: SCNNode, _ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool) {
+    init(_ parentNode: SCNNode, _ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool) {
         self.node = node
         self.parentNode = parentNode
         self.isMobile = isMobile
+        self.isTemporary = isTemporary
         parentNode.addChildNode(node)
         
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node.physicsBody?.mass = mass
         node.physicsBody?.isAffectedByGravity = isAffectedByGravity
+    }
+    
+    public func dead() -> Bool {
+        return isDead
+    }
+    
+    public func die() {
+        isDead = true
+        node.removeFromParentNode()
     }
     
     // TODO: This function updates the node's position in addition to its y-rotation.
@@ -33,23 +43,31 @@ class Entity {
     }
 
     public func update(_ view: SCNView) {
-        // Using a time counter should be okay because the frame rate seems to be capped at sixty FPS.
-        // I would prefer to use a timer, but I found Swift's various timer functions to be too inaccurate, perhaps due to user error.
-        counter = counter &+ 1
-        
-        if isRotating {
-            node.eulerAngles = SCNVector3Make(0, Float(counter % 360) / 180.0 * Float.pi, 0)
+        if !dead() {
+            // Using a time counter should be okay because the frame rate seems to be capped at sixty FPS.
+            // I would prefer to use a timer, but I found Swift's various timer functions to be too inaccurate, perhaps due to user error.
+            counter = counter &+ 1
+            
+            if isRotating {
+                node.eulerAngles = SCNVector3Make(0, Float(counter % 360) / 180.0 * Float.pi, 0)
+            }
+            
+            if isMobile, let target = target {
+                let nodeCol = node.presentation.position
+                let distRaw = SCNVector3(target.x - nodeCol.x, target.y - nodeCol.y, target.z - nodeCol.z - minZDist)
+                let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
+                let speedFactor = (abs(dist) < distBuffer ? 0.0 : speed / dist)
+                if isTemporary && speedFactor == 0.0 {
+                    die()
+                }
+                node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
+            }
         }
-        
-        if isMobile, let target = target {
-            let nodeCol = node.presentation.position
-            let distRaw = SCNVector3(target.x - nodeCol.x, target.y - nodeCol.y, target.z - nodeCol.z - minZDist)
-            let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
-            let speedFactor = (abs(dist) < distBuffer ? 0.0 : speed / dist)
-            node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
-        }
-        
     }
+    
+    // Death
+    private var isDead: Bool = false
+    private var isTemporary: Bool
 
     // Movement
     private let distBuffer: Float = 0.5

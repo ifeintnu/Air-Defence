@@ -5,7 +5,7 @@ class EnemyShip : Entity {
     
     init(parentNode: SCNNode, _ currentFrame: ARFrame) {
         let node = EnemyShip.scene!.rootNode.childNode(withName: "Ship_Type_3_Sphere.005_sh3", recursively: true)!
-        super.init(parentNode, node, isMobile: true, mass: 1.0, isAffectedByGravity: false)
+        super.init(parentNode, node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false)
 
         node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
         node.eulerAngles = SCNVector3Make(0, yRotationOffset, 0) // This rotates the ship to face forwards.
