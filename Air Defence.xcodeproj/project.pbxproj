@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FB42D9720CC2E1C00E3AE01 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */; };
+		3FB42D9920CC30A700E3AE01 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42D9820CC30A700E3AE01 /* Entity.swift */; };
 		3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */; };
 		3FC1401120CAF8D5009D6196 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401020CAF8D5009D6196 /* art.scnassets */; };
 		3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1401220CAF8D5009D6196 /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		3FB42D9820CC30A700E3AE01 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		3FC1400B20CAF8D5009D6196 /* Air Defence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Air Defence.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FC1401020CAF8D5009D6196 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 				3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */,
 				3FC1401020CAF8D5009D6196 /* art.scnassets */,
 				3FC1402420CB06F0009D6196 /* EnemyShip.swift */,
+				3FB42D9820CC30A700E3AE01 /* Entity.swift */,
+				3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */,
 				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
 				3FC1401420CAF8D5009D6196 /* Main.storyboard */,
 				3FC1401720CAF8D6009D6196 /* Assets.xcassets */,
@@ -142,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FB42D9720CC2E1C00E3AE01 /* Projectile.swift in Sources */,
+				3FB42D9920CC30A700E3AE01 /* Entity.swift in Sources */,
 				3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */,
 				3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */,
 				3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */,
