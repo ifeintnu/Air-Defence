@@ -16,7 +16,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         if worldIsSetUp {
-            for enemyShip in enemyShipNodes {
+            for enemyShip in entities {
                 enemyShip.update(sceneView)
             }
         }
@@ -38,19 +38,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         //sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
         
         // Create a new scene
-        scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
-        //enemyShipNode2 = enemyShipNode1.clone() as SCNNode
-        //enemyShipNode2.position = SCNVector3(x: 0.00, y: 0.75, z: 0.00)
+        EnemyShip.scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
         
         // Set the scene to the view
         sceneView.scene = SCNScene()
-        let hydrogenAtom = SCNSphere(radius: 1.20)
-        hydrogenAtom.firstMaterial!.diffuse.contents = UIColor.red
-        hydrogenAtom.firstMaterial!.specular.contents = UIColor.white
-        let hydrogenNode = SCNNode(geometry: hydrogenAtom)
-        hydrogenNode.position = SCNVector3Make(-6, 0, 0)
-        sceneView.scene.rootNode.addChildNode(hydrogenNode)
-        //sceneView.scene.rootNode.addChildNode(enemyShipNode2)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,8 +68,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     private func setUpWorld() {
         if let currentFrame = sceneView.session.currentFrame {
-            if let scene = scene {
-                enemyShipNodes.append(EnemyShip(parentNode: sceneView.scene.rootNode, primaryNode: scene.rootNode, currentFrame))
+            if EnemyShip.scene != nil {
+                entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, currentFrame))
                 worldIsSetUp = true
             }
         }
@@ -111,7 +102,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private var worldIsSetUp: Bool = false
-    private var enemyShipNodes: [EnemyShip] = []
-    private var scene: SCNScene?
+    private var entities: [EnemyShip] = []
     
 }
