@@ -2,26 +2,70 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
-        let (direction, position) = getCameraVector()
+        let (direction, position) = ViewController.getCameraVector(sceneView)
         let start = Projectile.start
         let end = Projectile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        entities.append(Projectile(parentNode: sceneView.scene.rootNode, origin: origin, target: target, colour: UIColor.red))
+        entities.append(Projectile(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, origin: origin, target: target, colour: UIColor.red))
+        entityCounter = entityCounter &+ 1
     }
     
-    func getCameraVector() -> (SCNVector3, SCNVector3) {
-        if let frame = self.sceneView.session.currentFrame {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+    
+    public static func getCameraVector(_ sceneView: ARSCNView) -> (SCNVector3, SCNVector3) {
+        if let frame = sceneView.session.currentFrame {
             let transform = SCNMatrix4(frame.camera.transform)
             let direction = SCNVector3(-1 * transform.m31, -1 * transform.m32, -1 * transform.m33) // Orientation of camera in world space.
             let position = SCNVector3(transform.m41, transform.m42, transform.m43) // Location of camera in world space.
             return (direction, position)
         }
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
+    }
+
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        var nodeA, nodeB: SCNNode?
+        if contact.nodeA.physicsBody?.categoryBitMask == Projectile.bitMask {
+            nodeA = contact.nodeA
+            nodeB = contact.nodeB
+        }
+        else {
+            nodeA = contact.nodeB
+            nodeB = contact.nodeA
+        }
+        if let nodeA = nodeA, let nodeB = nodeB {
+            if nodeA.physicsBody?.categoryBitMask == Projectile.bitMask && nodeB.physicsBody?.categoryBitMask == EnemyShip.bitMask {
+                if let particleSystem = SCNParticleSystem(named: "explosion", inDirectory: "art.scnassets") {
+                    let explosionNode = SCNNode()
+                    explosionNode.addParticleSystem(particleSystem)
+                    explosionNode.position = nodeA.position
+                    sceneView.scene.rootNode.addChildNode(explosionNode)
+                }
+                if let name = nodeA.name {
+                    for (index, entity) in entities.enumerated() {
+                        if entity.getID() == name {
+                            entity.die()
+                            entities.remove(at: index)
+                        }
+                    }
+                }
+                if let name = nodeB.name {
+                    for (index, entity) in entities.enumerated() {
+                        if entity.getID() == name {
+                            entity.die()
+                            entities.remove(at: index)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
@@ -40,23 +84,49 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        
+    }
+    
+    private func setUpWorld() {
+        if let currentFrame = sceneView.session.currentFrame {
+            if EnemyShip.scene != nil {
+                entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, currentFrame))
+                entityCounter = entityCounter &+ 1
+                worldIsSetUp = true
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
+        // Set the scene to the view
+        sceneView.scene = SCNScene()
+
+        // Set the view's delegates
         sceneView.delegate = self
+        sceneView.scene.physicsWorld.contactDelegate = self
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Show origin of coordinate system
-        //sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
+        // Toggle debugging options
+        //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
         
-        // Create a new scene
+        // Set EnemyShip's scene
         EnemyShip.scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = SCNScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,20 +146,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-    
-    private func setUpWorld() {
-        if let currentFrame = sceneView.session.currentFrame {
-            if EnemyShip.scene != nil {
-                entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, currentFrame))
-                worldIsSetUp = true
-            }
-        }
-    }
-    
     // MARK: - ARSCNViewDelegate
     
     /*
@@ -101,22 +157,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
      }
      */
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
-    
-    private var worldIsSetUp: Bool = false
     private var entities: [Entity] = []
+    private var entityCounter: Int = 0
+    private var worldIsSetUp: Bool = false
     
 }
