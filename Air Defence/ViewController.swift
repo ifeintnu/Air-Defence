@@ -119,9 +119,11 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     private func setUpWorld() {
         if let currentFrame = sceneView.session.currentFrame {
             if EnemyShip.scene != nil {
-                entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, currentFrame))
-                entityCounter = entityCounter &+ 1
-                worldIsSetUp = true
+                for _ in 1...5 {
+                    entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, currentFrame))
+                    entityCounter = entityCounter &+ 1
+                    worldIsSetUp = true
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ import SceneKit
 class EnemyShip : Entity {
     
     init(parentNode: SCNNode, nodeID: Int, _ currentFrame: ARFrame) {
-        let node = EnemyShip.scene!.rootNode.childNode(withName: "Ship_Type_3_Sphere.005_sh3", recursively: true)!
+        let node = EnemyShip.scene!.rootNode.childNode(withName: "Ship_Type_3_Sphere.005_sh3", recursively: true)!.clone()
         let bitMask = EnemyShip.bitMask
         
         // The following line is commented out because it moves the geometry away from the physics of the object, which breaks collision detection.
@@ -12,7 +12,10 @@ class EnemyShip : Entity {
         //node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
         
         node.eulerAngles = SCNVector3Make(0, yRotationOffset, 0) // This rotates the ship to face forwards.
-        node.position = SCNVector3(0.0, 0.0, -15.0)
+        let xPos = Int(arc4random_uniform(_: 11)) - 5
+        let yPos = Int(arc4random_uniform(_: 7)) - 3
+        let zPos = Int(arc4random_uniform(_:5)) - 15
+        node.position = SCNVector3(xPos, yPos, zPos)
         super.init(parentNode, node, nodeID: nodeID, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask)
     }
     

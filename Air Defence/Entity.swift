@@ -33,15 +33,6 @@ class Entity {
         return id
     }
     
-    // TODO: This function updates the node's position in addition to its y-rotation.
-    // Ideally, it would only update its orientation.
-    // Furthermore, instead of mimicking the camera's orientation, facing the camera's (x, y, z) location would be much, much better.
-    public func mimicCameraOrientation(_ currentFrame: ARFrame, _ yRotationOffset: Float) {
-        let rotate = simd_float4x4(SCNMatrix4MakeRotation(currentFrame.camera.eulerAngles.y + yRotationOffset, 0.0, 1.0, 0.0))
-        let rotateTransform = simd_mul(simd_float4x4(parentNode.worldTransform), rotate)
-        node.transform = SCNMatrix4(rotateTransform)
-    }
-    
     // The rotating feature is for showcasing the ship, not for gameplay.
     public func startRotating() {
         isRotating = true
@@ -69,6 +60,7 @@ class Entity {
                 if isTemporary && speedFactor == 0.0 {
                     die()
                 }
+                // TODO: Make moving entity face target.
                 node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
             }
         }
