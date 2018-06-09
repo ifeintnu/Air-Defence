@@ -5,19 +5,34 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
+        let (direction, position) = getCameraVector()
+        let start = Projectile.start
+        let end = Projectile.end
+        let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
+        let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
+        entities.append(Projectile(parentNode: sceneView.scene.rootNode, origin: origin, target: target, colour: UIColor.red))
+    }
     
-    func getComeraPosition()->SCNVector3? {
-        let currentTransform = self.sceneView.session.currentFrame?.camera.transform
-        guard let columns = currentTransform?.columns else {
-            return nil
+    func getCameraVector() -> (SCNVector3, SCNVector3) {
+        if let frame = self.sceneView.session.currentFrame {
+            let transform = SCNMatrix4(frame.camera.transform)
+            let direction = SCNVector3(-1 * transform.m31, -1 * transform.m32, -1 * transform.m33) // Orientation of camera in world space.
+            let position = SCNVector3(transform.m41, transform.m42, transform.m43) // Location of camera in world space.
+            return (direction, position)
         }
-        return SCNVector3((columns.3.x), (columns.3.y), (columns.3.z))
+        return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         if worldIsSetUp {
-            for enemyShip in entities {
-                enemyShip.update(sceneView)
+            for (index, entity) in entities.enumerated() {
+                if entity.dead() {
+                    entities.remove(at: index)
+                }
+                else {
+                    entity.update(sceneView)
+                }
             }
         }
         else {
@@ -102,6 +117,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private var worldIsSetUp: Bool = false
-    private var entities: [EnemyShip] = []
+    private var entities: [Entity] = []
     
 }
