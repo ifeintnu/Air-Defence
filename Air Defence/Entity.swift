@@ -3,16 +3,21 @@ import SceneKit
 
 class Entity {
     
-    init(_ parentNode: SCNNode, _ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool) {
+    init(_ parentNode: SCNNode, _ node: SCNNode, nodeID: Int, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
         self.node = node
         self.parentNode = parentNode
         self.isMobile = isMobile
         self.isTemporary = isTemporary
-        parentNode.addChildNode(node)
+        id = String(nodeID)
         
-        node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        node.name = id
+        node.physicsBody = physicsBody
         node.physicsBody?.mass = mass
         node.physicsBody?.isAffectedByGravity = isAffectedByGravity
+        node.physicsBody?.categoryBitMask = collisionBitMask
+        node.physicsBody?.collisionBitMask = collisionBitMask
+        node.physicsBody?.contactTestBitMask = contactBitMask
+        parentNode.addChildNode(node)
     }
     
     public func dead() -> Bool {
@@ -22,6 +27,10 @@ class Entity {
     public func die() {
         isDead = true
         node.removeFromParentNode()
+    }
+    
+    public func getID() -> String {
+        return id
     }
     
     // TODO: This function updates the node's position in addition to its y-rotation.
@@ -42,7 +51,7 @@ class Entity {
         isRotating = false
     }
 
-    public func update(_ view: SCNView) {
+    public func update(_ view: ARSCNView) {
         if !dead() {
             // Using a time counter should be okay because the frame rate seems to be capped at sixty FPS.
             // I would prefer to use a timer, but I found Swift's various timer functions to be too inaccurate, perhaps due to user error.
@@ -68,6 +77,9 @@ class Entity {
     // Death
     private var isDead: Bool = false
     private var isTemporary: Bool
+    
+    // ID
+    private var id: String = ""
 
     // Movement
     private let distBuffer: Float = 0.5
