@@ -11,9 +11,7 @@ class EnemyShip {
         // When these three lines are called together, the node's position is distorted.
         node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
         node.eulerAngles = SCNVector3Make(0, yRotationOffset, 0) // This rotates the ship to face forwards.
-        print(node.presentation.position)
         node.position = SCNVector3(0.0, 0.0, -15.0)
-        print(node.presentation.position)
 
         node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node.physicsBody?.mass = 1.0
@@ -49,24 +47,12 @@ class EnemyShip {
         
         if engineIsRunning {
             //mimicCameraOrientation(currentFrame)
-            /*let camCol = view.pointOfView!.convertPosition(view.pointOfView!.position, to: parentNode)
-            let nodeCol = node.presentation.convertPosition(node.presentation.position, to: parentNode)
-            let dist = SCNVector3(camCol.x - nodeCol.x, camCol.y - nodeCol.y, camCol.z - nodeCol.z - 10.0)
-            let distFloat = dist.x * dist.x + dist.y * dist.y + dist.z * dist.z
-            print("CAM")
-            print(camCol)
-            print(nodeCol)
-            print(dist)*/
             let camCol = view.pointOfView!.position
             let nodeCol = node.presentation.position
-            let dist = SCNVector3(camCol.x - nodeCol.x, camCol.y - nodeCol.y, camCol.z - nodeCol.z - 2.0)
-            let distFloat = dist.x * dist.x + dist.y * dist.y + dist.z * dist.z
-            print(camCol)
-            print(nodeCol)
-            print(dist)
-            print(distFloat)
-            print(distFloat.squareRoot())
-            node.physicsBody?.velocity = SCNVector3(dist.x * 0.1, dist.y * 0.1, dist.z * 0.1)
+            let distRaw = SCNVector3(camCol.x - nodeCol.x, camCol.y - nodeCol.y, camCol.z - nodeCol.z - minZDist)
+            let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
+            let factor = (abs(dist) < distBuffer ? 0.0 : 5.0 / dist)
+            node.physicsBody?.velocity = SCNVector3(distRaw.x * factor, distRaw.y * factor, distRaw.z * factor)
         }
     }
 
@@ -75,13 +61,15 @@ class EnemyShip {
     
     // Engine
     private var engineIsRunning: Bool = true
+    private var minZDist: Float = 2.0
+    private let distBuffer: Float = 0.5
     
     // Rotation
     private var isRotating: Bool = false
     private let yRotationOffset = 0.5 * Float.pi // Offset to make the ship face forwards rather than sideways.
     
     // SCNNode
-    public var node: SCNNode // Remember to change back to private.
+    private var node: SCNNode // Remember to change back to private.
     private var parentNode: SCNNode
 
 }

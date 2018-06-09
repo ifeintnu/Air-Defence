@@ -16,7 +16,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         if worldIsSetUp {
-            print(enemyShipNodes[0].node.presentation.position)
             for enemyShip in enemyShipNodes {
                 enemyShip.update(sceneView)
             }
@@ -36,7 +35,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Show origin of coordinate system
-        sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
+        //sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
         
         // Create a new scene
         scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
@@ -80,7 +79,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let currentFrame = sceneView.session.currentFrame {
             if let scene = scene {
                 enemyShipNodes.append(EnemyShip(parentNode: sceneView.scene.rootNode, primaryNode: scene.rootNode, currentFrame))
-                print(enemyShipNodes[0].node.position)
                 worldIsSetUp = true
             }
         }
