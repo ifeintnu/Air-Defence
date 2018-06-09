@@ -1,6 +1,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import AVFoundation
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
@@ -43,6 +44,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         if let nodeA = nodeA, let nodeB = nodeB {
             if nodeA.physicsBody?.categoryBitMask == Projectile.bitMask && nodeB.physicsBody?.categoryBitMask == EnemyShip.bitMask {
                 if let particleSystem = SCNParticleSystem(named: "explosion", inDirectory: "art.scnassets") {
+                    playSound(sound: .explosion)
                     let explosionNode = SCNNode()
                     explosionNode.addParticleSystem(particleSystem)
                     explosionNode.position = nodeA.position
@@ -64,6 +66,21 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    private func playSound(sound: Sound) {
+        DispatchQueue.main.async {
+            do
+            {
+                if let soundPath = Bundle.main.url(forResource: sound.rawValue, withExtension: "mp3", subdirectory: "Sounds") {
+                    self.soundPlayer = try AVAudioPlayer(contentsOf: soundPath)
+                    self.soundPlayer?.play()
+                }
+            }
+            catch let error as NSError {
+                print(error.description)
             }
         }
     }
@@ -159,6 +176,11 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
+    private var soundPlayer: AVAudioPlayer?
     private var worldIsSetUp: Bool = false
+
+    private enum Sound: String {
+        case explosion = "explosion"
+    }
     
 }
