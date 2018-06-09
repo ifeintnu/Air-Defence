@@ -7,25 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B64A9F5620C3ED15003B1D23 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64A9F5520C3ED15003B1D23 /* AppDelegate.swift */; };
-		B64A9F5820C3ED15003B1D23 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64A9F5720C3ED15003B1D23 /* ViewController.swift */; };
-		B64A9F5B20C3ED15003B1D23 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64A9F5920C3ED15003B1D23 /* Main.storyboard */; };
-		B64A9F5D20C3ED15003B1D23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B64A9F5C20C3ED15003B1D23 /* Assets.xcassets */; };
-		B64A9F6020C3ED15003B1D23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64A9F5E20C3ED15003B1D23 /* LaunchScreen.storyboard */; };
+		3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */; };
+		3FC1401120CAF8D5009D6196 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401020CAF8D5009D6196 /* art.scnassets */; };
+		3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1401220CAF8D5009D6196 /* ViewController.swift */; };
+		3FC1401620CAF8D5009D6196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401420CAF8D5009D6196 /* Main.storyboard */; };
+		3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401720CAF8D6009D6196 /* Assets.xcassets */; };
+		3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */; };
+		3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1402420CB06F0009D6196 /* EnemyShip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B64A9F5220C3ED15003B1D23 /* ARwar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARwar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B64A9F5520C3ED15003B1D23 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B64A9F5720C3ED15003B1D23 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B64A9F5A20C3ED15003B1D23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B64A9F5C20C3ED15003B1D23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B64A9F5F20C3ED15003B1D23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B64A9F6120C3ED15003B1D23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FC1400B20CAF8D5009D6196 /* Air Defence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Air Defence.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3FC1401020CAF8D5009D6196 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		3FC1401220CAF8D5009D6196 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3FC1401520CAF8D5009D6196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3FC1401720CAF8D6009D6196 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3FC1401A20CAF8D6009D6196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3FC1401C20CAF8D6009D6196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FC1402420CB06F0009D6196 /* EnemyShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B64A9F4F20C3ED15003B1D23 /* Frameworks */ = {
+		3FC1400820CAF8D5009D6196 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,71 +39,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B64A9F4920C3ED15003B1D23 = {
+		3FC1400220CAF8D5009D6196 = {
 			isa = PBXGroup;
 			children = (
-				B64A9F5420C3ED15003B1D23 /* ARwar */,
-				B64A9F5320C3ED15003B1D23 /* Products */,
+				3FC1400D20CAF8D5009D6196 /* Air Defence */,
+				3FC1400C20CAF8D5009D6196 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B64A9F5320C3ED15003B1D23 /* Products */ = {
+		3FC1400C20CAF8D5009D6196 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B64A9F5220C3ED15003B1D23 /* ARwar.app */,
+				3FC1400B20CAF8D5009D6196 /* Air Defence.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B64A9F5420C3ED15003B1D23 /* ARwar */ = {
+		3FC1400D20CAF8D5009D6196 /* Air Defence */ = {
 			isa = PBXGroup;
 			children = (
-				B64A9F5520C3ED15003B1D23 /* AppDelegate.swift */,
-				B64A9F5720C3ED15003B1D23 /* ViewController.swift */,
-				B64A9F5920C3ED15003B1D23 /* Main.storyboard */,
-				B64A9F5C20C3ED15003B1D23 /* Assets.xcassets */,
-				B64A9F5E20C3ED15003B1D23 /* LaunchScreen.storyboard */,
-				B64A9F6120C3ED15003B1D23 /* Info.plist */,
+				3FC1400E20CAF8D5009D6196 /* AppDelegate.swift */,
+				3FC1401020CAF8D5009D6196 /* art.scnassets */,
+				3FC1402420CB06F0009D6196 /* EnemyShip.swift */,
+				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
+				3FC1401420CAF8D5009D6196 /* Main.storyboard */,
+				3FC1401720CAF8D6009D6196 /* Assets.xcassets */,
+				3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */,
+				3FC1401C20CAF8D6009D6196 /* Info.plist */,
 			);
-			path = ARwar;
+			path = "Air Defence";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B64A9F5120C3ED15003B1D23 /* ARwar */ = {
+		3FC1400A20CAF8D5009D6196 /* Air Defence */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B64A9F6420C3ED15003B1D23 /* Build configuration list for PBXNativeTarget "ARwar" */;
+			buildConfigurationList = 3FC1401F20CAF8D6009D6196 /* Build configuration list for PBXNativeTarget "Air Defence" */;
 			buildPhases = (
-				B64A9F4E20C3ED15003B1D23 /* Sources */,
-				B64A9F4F20C3ED15003B1D23 /* Frameworks */,
-				B64A9F5020C3ED15003B1D23 /* Resources */,
+				3FC1400720CAF8D5009D6196 /* Sources */,
+				3FC1400820CAF8D5009D6196 /* Frameworks */,
+				3FC1400920CAF8D5009D6196 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ARwar;
-			productName = ARwar;
-			productReference = B64A9F5220C3ED15003B1D23 /* ARwar.app */;
+			name = "Air Defence";
+			productName = "Air Defence";
+			productReference = 3FC1400B20CAF8D5009D6196 /* Air Defence.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B64A9F4A20C3ED15003B1D23 /* Project object */ = {
+		3FC1400320CAF8D5009D6196 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = jacky;
+				ORGANIZATIONNAME = NTU;
 				TargetAttributes = {
-					B64A9F5120C3ED15003B1D23 = {
+					3FC1400A20CAF8D5009D6196 = {
 						CreatedOnToolsVersion = 9.4;
 					};
 				};
 			};
-			buildConfigurationList = B64A9F4D20C3ED15003B1D23 /* Build configuration list for PBXProject "ARwar" */;
+			buildConfigurationList = 3FC1400620CAF8D5009D6196 /* Build configuration list for PBXProject "Air Defence" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -107,54 +113,56 @@
 				en,
 				Base,
 			);
-			mainGroup = B64A9F4920C3ED15003B1D23;
-			productRefGroup = B64A9F5320C3ED15003B1D23 /* Products */;
+			mainGroup = 3FC1400220CAF8D5009D6196;
+			productRefGroup = 3FC1400C20CAF8D5009D6196 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B64A9F5120C3ED15003B1D23 /* ARwar */,
+				3FC1400A20CAF8D5009D6196 /* Air Defence */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B64A9F5020C3ED15003B1D23 /* Resources */ = {
+		3FC1400920CAF8D5009D6196 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B64A9F6020C3ED15003B1D23 /* LaunchScreen.storyboard in Resources */,
-				B64A9F5D20C3ED15003B1D23 /* Assets.xcassets in Resources */,
-				B64A9F5B20C3ED15003B1D23 /* Main.storyboard in Resources */,
+				3FC1401120CAF8D5009D6196 /* art.scnassets in Resources */,
+				3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */,
+				3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */,
+				3FC1401620CAF8D5009D6196 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B64A9F4E20C3ED15003B1D23 /* Sources */ = {
+		3FC1400720CAF8D5009D6196 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B64A9F5820C3ED15003B1D23 /* ViewController.swift in Sources */,
-				B64A9F5620C3ED15003B1D23 /* AppDelegate.swift in Sources */,
+				3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */,
+				3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */,
+				3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B64A9F5920C3ED15003B1D23 /* Main.storyboard */ = {
+		3FC1401420CAF8D5009D6196 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B64A9F5A20C3ED15003B1D23 /* Base */,
+				3FC1401520CAF8D5009D6196 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		B64A9F5E20C3ED15003B1D23 /* LaunchScreen.storyboard */ = {
+		3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B64A9F5F20C3ED15003B1D23 /* Base */,
+				3FC1401A20CAF8D6009D6196 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -162,7 +170,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B64A9F6220C3ED15003B1D23 /* Debug */ = {
+		3FC1401D20CAF8D6009D6196 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -222,7 +230,7 @@
 			};
 			name = Debug;
 		};
-		B64A9F6320C3ED15003B1D23 /* Release */ = {
+		3FC1401E20CAF8D6009D6196 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -276,38 +284,36 @@
 			};
 			name = Release;
 		};
-		B64A9F6520C3ED15003B1D23 /* Debug */ = {
+		3FC1402020CAF8D6009D6196 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9F269T6XZ;
-				INFOPLIST_FILE = ARwar/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				DEVELOPMENT_TEAM = 76794A944C;
+				INFOPLIST_FILE = "Air Defence/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jacky.ARwar;
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		B64A9F6620C3ED15003B1D23 /* Release */ = {
+		3FC1402120CAF8D6009D6196 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M9F269T6XZ;
-				INFOPLIST_FILE = ARwar/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				DEVELOPMENT_TEAM = 76794A944C;
+				INFOPLIST_FILE = "Air Defence/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jacky.ARwar;
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -317,25 +323,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B64A9F4D20C3ED15003B1D23 /* Build configuration list for PBXProject "ARwar" */ = {
+		3FC1400620CAF8D5009D6196 /* Build configuration list for PBXProject "Air Defence" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B64A9F6220C3ED15003B1D23 /* Debug */,
-				B64A9F6320C3ED15003B1D23 /* Release */,
+				3FC1401D20CAF8D6009D6196 /* Debug */,
+				3FC1401E20CAF8D6009D6196 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B64A9F6420C3ED15003B1D23 /* Build configuration list for PBXNativeTarget "ARwar" */ = {
+		3FC1401F20CAF8D6009D6196 /* Build configuration list for PBXNativeTarget "Air Defence" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B64A9F6520C3ED15003B1D23 /* Debug */,
-				B64A9F6620C3ED15003B1D23 /* Release */,
+				3FC1402020CAF8D6009D6196 /* Debug */,
+				3FC1402120CAF8D6009D6196 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B64A9F4A20C3ED15003B1D23 /* Project object */;
+	rootObject = 3FC1400320CAF8D5009D6196 /* Project object */;
 }
