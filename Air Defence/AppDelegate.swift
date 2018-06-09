@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  ARwar
+//  Air Defence
 //
-//  Created by 何驊益 on 2018/6/3.
-//  Copyright © 2018年 jacky. All rights reserved.
+//  Created by Student on 2018/6/9.
+//  Copyright © 2018年 NTU. All rights reserved.
 //
 
 import UIKit
