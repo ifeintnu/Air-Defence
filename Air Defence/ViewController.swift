@@ -1,5 +1,6 @@
 import UIKit
 import SceneKit
+import SpriteKit
 import ARKit
 import AVFoundation
 
@@ -7,12 +8,17 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     @IBOutlet var sceneView: ARSCNView!
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
-        let (direction, position) = ViewController.getCameraVector(sceneView)
+        let (direction, position) = getCameraVector()
         let start = Projectile.start
         let end = Projectile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        entities.append(Projectile(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, origin: origin, target: target, colour: UIColor.red))
+        addEntity(Projectile(parentNode: sceneView.scene.rootNode, origin: origin, target: target, colour: UIColor.red))
+    }
+    
+    public func addEntity(_ entity: Entity) {
+        entity.setID(entityCounter)
+        pendingEntities.append(entity)
         entityCounter = entityCounter &+ 1
     }
     
@@ -21,7 +27,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Release any cached data, images, etc that aren't in use.
     }
     
-    public static func getCameraVector(_ sceneView: ARSCNView) -> (SCNVector3, SCNVector3) {
+    public func getCameraVector() -> (SCNVector3, SCNVector3) {
         if let frame = sceneView.session.currentFrame {
             let transform = SCNMatrix4(frame.camera.transform)
             let direction = SCNVector3(-1 * transform.m31, -1 * transform.m32, -1 * transform.m33) // Orientation of camera in world space.
@@ -50,21 +56,17 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     explosionNode.position = nodeA.position
                     sceneView.scene.rootNode.addChildNode(explosionNode)
                 }
-                if let name = nodeA.name {
-                    for (index, entity) in entities.enumerated() {
-                        if entity.getID() == name {
+                if let nameA = nodeA.name, let nameB = nodeB.name {
+                    var newEntities: [Entity] = []
+                    for entity in entities {
+                        if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
-                            entities.remove(at: index)
+                        }
+                        else {
+                            newEntities.append(entity)
                         }
                     }
-                }
-                if let name = nodeB.name {
-                    for (index, entity) in entities.enumerated() {
-                        if entity.getID() == name {
-                            entity.die()
-                            entities.remove(at: index)
-                        }
-                    }
+                    entities = newEntities
                 }
             }
         }
@@ -87,14 +89,15 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
         if worldIsSetUp {
-            for (index, entity) in entities.enumerated() {
-                if entity.dead() {
-                    entities.remove(at: index)
-                }
-                else {
-                    entity.update(sceneView)
+            var newEntities: [Entity] = pendingEntities
+            pendingEntities = []
+            for entity in entities {
+                if !entity.dead() {
+                    entity.update(self)
+                    newEntities.append(entity)
                 }
             }
+            entities = newEntities
         }
         else {
             setUpWorld()
@@ -120,10 +123,9 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         if let currentFrame = sceneView.session.currentFrame {
             if EnemyShip.scene != nil {
                 for _ in 1...10 {
-                    entities.append(EnemyShip(parentNode: sceneView.scene.rootNode, nodeID: entityCounter, currentFrame))
-                    entityCounter = entityCounter &+ 1
-                    worldIsSetUp = true
+                    addEntity(EnemyShip(parentNode: sceneView.scene.rootNode, currentFrame))
                 }
+                worldIsSetUp = true
             }
         }
     }
@@ -140,6 +142,10 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+
+        //shipHud = HUD(size: self.view.bounds.size)
+        //sceneView.overlaySKScene = SKScene(size: self.view.bounds.size)
+        //sceneView.overlaySKScene?.addChild(SKSpriteNode(imageNamed: "art.scnassets/crosshairs.png"))
         
         // Toggle debugging options
         //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
@@ -178,6 +184,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
+    private var pendingEntities: [Entity] = []
     private var soundPlayer: AVAudioPlayer?
     private var worldIsSetUp: Bool = false
 
