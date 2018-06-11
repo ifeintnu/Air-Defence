@@ -36,15 +36,24 @@
                                     <action selector="touchSight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ykm-IX-tr2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkc-cv-vZX">
+                                <rect key="frame" x="277" y="572" width="78" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Rank">
+                                    <color key="titleColor" red="1" green="0.034920876077064067" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="Ey6-Px-sji" firstAttribute="bottom" secondItem="Fkc-cv-vZX" secondAttribute="bottom" constant="40" id="664-Tu-Sbu"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="top" secondItem="Isq-uZ-xFn" secondAttribute="top" id="9Su-ui-qxo"/>
                             <constraint firstItem="cI0-kD-7md" firstAttribute="centerY" secondItem="Isq-uZ-xFn" secondAttribute="centerY" id="Cta-NS-GCS"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" id="F1A-NS-dn1"/>
                             <constraint firstItem="cI0-kD-7md" firstAttribute="centerX" secondItem="Isq-uZ-xFn" secondAttribute="centerX" id="a23-Gf-ZxU"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="trailing" secondItem="Ey6-Px-sji" secondAttribute="trailing" id="bfD-mV-7Tn"/>
+                            <constraint firstItem="Ey6-Px-sji" firstAttribute="trailing" secondItem="Fkc-cv-vZX" secondAttribute="trailing" constant="20" id="euY-cC-UeY"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="bottom" secondItem="Ey6-Px-sji" secondAttribute="bottom" id="y8L-b2-YjU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ey6-Px-sji"/>

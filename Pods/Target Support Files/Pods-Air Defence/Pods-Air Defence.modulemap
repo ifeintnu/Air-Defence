@@ -1,0 +1,6 @@
+framework module Pods_Air_Defence {
+  umbrella header "Pods-Air Defence-umbrella.h"
+
+  export *
+  module * { export * }
+}
