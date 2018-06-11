@@ -12,22 +12,28 @@ class EnemyShip : Entity {
         //node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
         
         node.eulerAngles = SCNVector3Make(0, yRotationOffset, 0) // This rotates the ship to face forwards.
-        let xPos = Int(arc4random_uniform(_: 11)) - 5
-        let yPos = Int(arc4random_uniform(_: 7)) - 3
-        let zPos = Int(arc4random_uniform(_:5)) - 15
-        node.position = SCNVector3(xPos, yPos, zPos)
+        xDelta = Float(arc4random_uniform(11)) - 5.0
+        yDelta = Float(arc4random_uniform(7)) - 3.0
+        zDelta = Float(arc4random_uniform(5))
+        let zStart = Float(arc4random_uniform(100)) - 110.0
+        node.position = SCNVector3(xDelta, yDelta, zStart)
         super.init(parentNode, node, nodeID: nodeID, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask)
     }
     
     override public func update(_ view: ARSCNView) {
         let (direction, position) = ViewController.getCameraVector(view)
         let distanceFactor = Projectile.start
-        target = SCNVector3(position.x + direction.x * distanceFactor, position.y + direction.y * distanceFactor, position.z + direction.z * distanceFactor)
+        target = SCNVector3(position.x + (direction.x + xDelta) * distanceFactor, position.y + (direction.y + yDelta) * distanceFactor, position.z + (direction.z + zDelta) * distanceFactor)
         super.update(view)
     }
 
     // Bit Masks
     public static let bitMask = 1
+    
+    // Position in Formation
+    var xDelta: Float = 0
+    var yDelta: Float = 0
+    var zDelta: Float = 0
 
     // Rotation
     private let yRotationOffset: Float = 0.5 * Float.pi // Offset to make the ship face forwards rather than sideways.
