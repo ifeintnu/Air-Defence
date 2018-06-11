@@ -18,6 +18,8 @@ class Projectile : Entity {
     }
     override public func modifyTarget() {
         self.target?.y += self.gravity
+        self.target?.x += self.left
+        self.target?.z += self.left
     }
     
     private func setDiffProjectile(colour: UIColor){
@@ -32,6 +34,13 @@ class Projectile : Entity {
         case UIColor.brown:
             self.speed = 7.5
             self.gravity = -0.15
+        case UIColor.yellow:
+            self.speed = 7.5
+            self.left = 0.15
+        case UIColor.green:
+            self.speed = 7.5
+            self.left = -0.15
+
         default:
             self.speed = 7.5
         }
@@ -45,4 +54,5 @@ class Projectile : Entity {
     
     // Gravity
     private var gravity: Float = 0.0
+    private var left: Float = 0.0
 }

@@ -15,19 +15,50 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
         addEntity(Projectile(origin: origin, target: target, colour: colour))
     }
+    var i = 0
+    @IBAction func Rotation(_ sender: Any) {
+        i += 1
+        i %= 35
+        switch i {
+        case 0:
+            fire(UIColor.brown)
+        case 5:
+            fire(UIColor.blue)
+        case 10:
+            fire(UIColor.red)
+        case 15:
+            fire(UIColor.yellow)
+        case 20:
+            fire(UIColor.green)
+        case 25:
+            fire(UIColor.black)
+        case 30:
+            fire(UIColor.cyan)
+            
+        default:
+            print(i)
+        }
+    }
+
+    @IBAction func SwipeRight(_ sender: Any) {
+        fire(UIColor.yellow)
+        
+    }
+    @IBAction func SwipeLeft(_ sender: Any) {
+        fire(UIColor.green)
+    }
     @IBAction func touchSight(_ sender: Any) {
         fire(UIColor.red)
     }
-    @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
-
-        fire(UIColor.cyan)
-        
-        
-    }
-    
-    @IBAction func swipeDownGesture(_ sender: Any) {
+    @IBAction func SwipeDown(_ sender: Any) {
         fire(UIColor.brown)
     }
+    
+    
+    @IBAction func SwipeUp(_ sender: Any) {
+        fire(UIColor.cyan)
+    }
+    
     public func addEntity(_ entity: Entity) {
         entity.setID(entityCounter)
         pendingEntities.append(entity)
