@@ -6,7 +6,9 @@ target 'Air Defence' do
   use_frameworks!
 
   # Pods for Air Defence
+  pod 'Bolts'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'FBSDKLoginKit'
 
 end
