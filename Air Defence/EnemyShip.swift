@@ -20,9 +20,13 @@ class EnemyShip : Entity {
     }
     
     private func fire(_ view: ViewController, target: SCNVector3) {
-        let position = super.getPosition()
-        let start: Float = 3.0
-        let origin = SCNVector3(position.x, position.y, position.z + start) // TODO: Why doesn't this work? SCNVector3(position.x + direction.x * start, position.y + (direction.y - yRotationOffset) * start, position.z + direction.z * start)
+        let nodePos = super.getPosition()
+        let cameraPos = view.getCameraVector().1
+        let distRaw = SCNVector3(cameraPos.x - nodePos.x, cameraPos.y - nodePos.y, cameraPos.z - nodePos.z)
+        let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
+        let distRawNormalised = SCNVector3(distRaw.x / dist, distRaw.y / dist, distRaw.z / dist)
+        let start: Float = 1.75
+        let origin = SCNVector3(nodePos.x + distRawNormalised.x * start, nodePos.y + distRawNormalised.y * start, nodePos.z + distRawNormalised.z * start)
         view.addEntity(Projectile(origin: origin, target: target, colour: UIColor.blue))
     }
     
