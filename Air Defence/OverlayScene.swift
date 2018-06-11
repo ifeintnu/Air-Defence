@@ -43,4 +43,8 @@ class OverlayScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    func addScore(){
+        //this is a function on the scene. You can pass any variable you want through the function.
+        score=score+5
+    }
 }

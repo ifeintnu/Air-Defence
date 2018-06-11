@@ -5,9 +5,12 @@ import ARKit
 import AVFoundation
 import FirebaseDatabase
 
+var score = 0
+
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
     var ref: DatabaseReference!
+    var spriteScene: OverlayScene!
     
     @IBOutlet weak var sceneView: ARSCNView!
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
@@ -64,6 +67,9 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     for entity in entities {
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
+//                            score=score + 5
+                            self.spriteScene.score = self.spriteScene.score + 5
+                            print(score)
                         }
                         else {
                             newEntities.append(entity)
@@ -155,8 +161,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         
         
         //scoreBoard
-        
-        sceneView.overlaySKScene = OverlayScene(size: sceneView.bounds.size)
+        self.spriteScene = OverlayScene(size: sceneView.bounds.size)
+        sceneView.overlaySKScene = self.spriteScene
         
         
         // Toggle debugging options
