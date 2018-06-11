@@ -3,9 +3,8 @@ import SceneKit
 
 class Entity {
     
-    init(_ parentNode: SCNNode, _ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
+    init(_ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
         self.node = node
-        self.parentNode = parentNode
         self.isMobile = isMobile
         self.isTemporary = isTemporary
 
@@ -15,7 +14,6 @@ class Entity {
         node.physicsBody?.categoryBitMask = collisionBitMask
         node.physicsBody?.collisionBitMask = collisionBitMask
         node.physicsBody?.contactTestBitMask = contactBitMask
-        parentNode.addChildNode(node)
     }
     
     public func getPosition() -> SCNVector3 {
@@ -31,14 +29,20 @@ class Entity {
     }
     
     public func die() {
-        if !isDead {
-            isDead = true
-            node.removeFromParentNode()
-        }
+        isDead = true
     }
     
     public func getID() -> String {
         return id
+    }
+    
+    public func getNode() -> SCNNode {
+        return node
+    }
+    
+    public func remove() {
+        let removeAction = SCNAction.removeFromParentNode()
+        node.runAction(SCNAction.sequence([removeAction]))
     }
     
     public func setID(_ id: Int) {
@@ -80,9 +84,6 @@ class Entity {
         }
     }
     
-    // Colour
-    public var colour: UIColor?
-    
     // Death
     private var isDead: Bool = false
     private var isTemporary: Bool
@@ -102,7 +103,6 @@ class Entity {
 
     // SCNNode
     private var node: SCNNode
-    private var parentNode: SCNNode
 
     // Time counter
     private var counter: UInt64 = 0

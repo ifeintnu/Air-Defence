@@ -13,7 +13,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         let end = Projectile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Projectile(parentNode: sceneView.scene.rootNode, origin: origin, target: target, colour: UIColor.red))
+        addEntity(Projectile(origin: origin, target: target, colour: UIColor.red))
     }
     
     public func addEntity(_ entity: Entity) {
@@ -61,6 +61,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     for entity in entities {
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
+                            deadEntities.append(entity)
                         }
                         else {
                             newEntities.append(entity)
@@ -87,22 +88,54 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         }
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if worldIsSetUp {
+            for entity in pendingEntities {
+                sceneView.scene.rootNode.addChildNode(entity.getNode())
+            }
             var newEntities: [Entity] = pendingEntities
             pendingEntities = []
             for entity in entities {
-                if !entity.dead() {
+                if entity.dead() {
+                    deadEntities.append(entity)
+                }
+                else {
                     entity.update(self)
                     newEntities.append(entity)
                 }
             }
             entities = newEntities
+            for entity in deadEntities {
+                entity.remove()
+            }
         }
         else {
             setUpWorld()
         }
     }
+    
+    /*func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
+        if worldIsSetUp {
+            var newEntities: [Entity] = pendingEntities
+            pendingEntities = []
+            for entity in entities {
+                if entity.dead() {
+                    deadEntities.append(entity)
+                }
+                else {
+                    entity.update(self)
+                    newEntities.append(entity)
+                }
+            }
+            entities = newEntities
+            for entity in deadEntities {
+                entity.remove()
+            }
+        }
+        else {
+            setUpWorld()
+        }
+    }*/
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -123,7 +156,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         if let currentFrame = sceneView.session.currentFrame {
             if EnemyShip.scene != nil {
                 for _ in 1...10 {
-                    addEntity(EnemyShip(parentNode: sceneView.scene.rootNode, currentFrame))
+                    addEntity(EnemyShip(currentFrame))
                 }
                 worldIsSetUp = true
             }
@@ -185,6 +218,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
     private var pendingEntities: [Entity] = []
+    private var deadEntities: [Entity] = []
     private var soundPlayer: AVAudioPlayer?
     private var worldIsSetUp: Bool = false
 
