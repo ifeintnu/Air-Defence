@@ -33,8 +33,8 @@ class EnemyShip : Entity {
     override public func update(_ view: ViewController) {
         let (direction, position) = view.getCameraVector()
         let distanceFactor = Projectile.start
+
         // Random movement.
-        // TODO: What about when enemy ships bump into each other?
         if super.getTimeCount() % 60 == 0  {
          let rand = arc4random_uniform(8)
          if rand & 1 == 0 {
