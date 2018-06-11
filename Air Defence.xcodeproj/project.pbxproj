@@ -17,6 +17,7 @@
 		3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401720CAF8D6009D6196 /* Assets.xcassets */; };
 		3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */; };
 		3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1402420CB06F0009D6196 /* EnemyShip.swift */; };
+		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		3FC1401A20CAF8D6009D6196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FC1401C20CAF8D6009D6196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FC1402420CB06F0009D6196 /* EnemyShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
+		CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				3FB42D9820CC30A700E3AE01 /* Entity.swift */,
 				3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */,
 				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
+				CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */,
 				3FC1401420CAF8D5009D6196 /* Main.storyboard */,
 				3FC1401720CAF8D6009D6196 /* Assets.xcassets */,
 				3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */,
@@ -157,6 +160,7 @@
 				3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */,
 				3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */,
 				3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */,
+				CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,13 +305,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 76794A944C;
+				DEVELOPMENT_TEAM = B34533U9Q2;
 				INFOPLIST_FILE = "Air Defence/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
+				PRODUCT_BUNDLE_IDENTIFIER = "txshon.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -319,13 +323,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 76794A944C;
+				DEVELOPMENT_TEAM = B34533U9Q2;
 				INFOPLIST_FILE = "Air Defence/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
+				PRODUCT_BUNDLE_IDENTIFIER = "txshon.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

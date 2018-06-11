@@ -134,12 +134,19 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Set the scene to the view
         sceneView.scene = SCNScene()
 
+        
         // Set the view's delegates
         sceneView.delegate = self
         sceneView.scene.physicsWorld.contactDelegate = self
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        
+        //scoreBoard
+        
+        sceneView.overlaySKScene = OverlayScene(size: sceneView.bounds.size)
+        
         
         // Toggle debugging options
         //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
