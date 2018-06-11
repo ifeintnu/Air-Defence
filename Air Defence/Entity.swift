@@ -3,14 +3,12 @@ import SceneKit
 
 class Entity {
     
-    init(_ parentNode: SCNNode, _ node: SCNNode, nodeID: Int, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
+    init(_ parentNode: SCNNode, _ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
         self.node = node
         self.parentNode = parentNode
         self.isMobile = isMobile
         self.isTemporary = isTemporary
-        id = String(nodeID)
-        
-        node.name = id
+
         node.physicsBody = physicsBody
         node.physicsBody?.mass = mass
         node.physicsBody?.isAffectedByGravity = isAffectedByGravity
@@ -20,17 +18,32 @@ class Entity {
         parentNode.addChildNode(node)
     }
     
+    public func getPosition() -> SCNVector3 {
+        return node.presentation.position
+    }
+    
+    public func getTimeCount() -> UInt64 {
+        return counter
+    }
+    
     public func dead() -> Bool {
         return isDead
     }
     
     public func die() {
-        isDead = true
-        node.removeFromParentNode()
+        if !isDead {
+            isDead = true
+            node.removeFromParentNode()
+        }
     }
     
     public func getID() -> String {
         return id
+    }
+    
+    public func setID(_ id: Int) {
+        self.id = String(id)
+        node.name = self.id
     }
     
     // The rotating feature is for showcasing the ship, not for gameplay.
@@ -42,7 +55,7 @@ class Entity {
         isRotating = false
     }
 
-    public func update(_ view: ARSCNView) {
+    public func update(_ view: ViewController) {
         if !dead() {
             // Using a time counter should be okay because the frame rate seems to be capped at sixty FPS.
             // I would prefer to use a timer, but I found Swift's various timer functions to be too inaccurate, perhaps due to user error.
@@ -62,9 +75,13 @@ class Entity {
                 }
                 // TODO: Make moving entity face target.
                 node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
+                //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1)
             }
         }
     }
+    
+    // Colour
+    public var colour: UIColor?
     
     // Death
     private var isDead: Bool = false

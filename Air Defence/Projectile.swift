@@ -2,14 +2,15 @@ import SceneKit
 
 class Projectile : Entity {
     
-    init(parentNode: SCNNode, nodeID: Int, origin: SCNVector3, target: SCNVector3, colour: UIColor) {
+    init(parentNode: SCNNode, origin: SCNVector3, target: SCNVector3, colour: UIColor) {
         let projectileShape = Projectile.shape
         projectileShape.firstMaterial!.diffuse.contents = colour
         projectileShape.firstMaterial!.specular.contents = UIColor.white
         let node = SCNNode(geometry: projectileShape)
         node.position = origin
         let bitMask = Projectile.bitMask
-        super.init(parentNode, node, nodeID: nodeID, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: projectileShape, options: nil)), collisionBitMask: bitMask, contactBitMask: EnemyShip.bitMask)
+        super.init(parentNode, node, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: projectileShape, options: nil)), collisionBitMask: bitMask, contactBitMask: EnemyShip.bitMask)
+        super.colour = colour
         self.minZDist = 0.0
         self.speed = 7.5
         self.target = target

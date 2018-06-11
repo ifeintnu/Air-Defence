@@ -20,6 +20,7 @@
 		3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1402420CB06F0009D6196 /* EnemyShip.swift */; };
 		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
 		CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */; };
+		B60261E520CEA1C000FBA070 /* sight.png in Resources */ = {isa = PBXBuildFile; fileRef = B60261E420CEA1C000FBA070 /* sight.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.debug.xcconfig"; sourceTree = "<group>"; };
 		CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
 		CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B60261E420CEA1C000FBA070 /* sight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sight.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
 				CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */,
 				3FC1401420CAF8D5009D6196 /* Main.storyboard */,
+				B60261E420CEA1C000FBA070 /* sight.png */,
 				3FC1401720CAF8D6009D6196 /* Assets.xcassets */,
 				3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */,
 				3FC1401C20CAF8D6009D6196 /* Info.plist */,
@@ -170,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FAEB19F20CC88CC00F0EE9B /* Sounds in Resources */,
+				B60261E520CEA1C000FBA070 /* sight.png in Resources */,
 				3FC1401120CAF8D5009D6196 /* art.scnassets in Resources */,
 				3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */,
 				3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */,
@@ -381,6 +385,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B34533U9Q2;
 				INFOPLIST_FILE = "Air Defence/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,11 +405,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B34533U9Q2;
 				INFOPLIST_FILE = "Air Defence/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "txshon.Air-Defence";
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
