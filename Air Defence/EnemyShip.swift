@@ -27,7 +27,7 @@ class EnemyShip : Entity {
         let distRawNormalised = SCNVector3(distRaw.x / dist, distRaw.y / dist, distRaw.z / dist)
         let start: Float = 1.75
         let origin = SCNVector3(nodePos.x + distRawNormalised.x * start, nodePos.y + distRawNormalised.y * start, nodePos.z + distRawNormalised.z * start)
-        view.addEntity(Projectile(origin: origin, target: target, colour: UIColor.blue))
+        view.addEntity(Projectile(origin: origin, target: target))
     }
     
     override public func update(_ view: ViewController) {
@@ -48,10 +48,11 @@ class EnemyShip : Entity {
              }
          }
         
-        target = SCNVector3(position.x + (direction.x + xDelta) * distanceFactor, position.y + (direction.y + yDelta) * distanceFactor, position.z + (direction.z + zDelta) * distanceFactor)
+        super.target = SCNVector3(position.x + (direction.x + xDelta) * distanceFactor, position.y + (direction.y + yDelta) * distanceFactor, position.z + (direction.z + zDelta) * distanceFactor)
+        super.lookAtPoint = position
         
         // 1/120 chance of firing per frame.
-        if arc4random_uniform(120) == 0 {
+        if arc4random_uniform(500) == 0 {
             fire(view, target: position)
         }
         

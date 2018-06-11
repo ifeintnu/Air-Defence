@@ -71,7 +71,7 @@ class Entity {
                 node.eulerAngles = SCNVector3Make(0, Float(counter % 360) / 180.0 * Float.pi, 0)
             }
             
-            if isMobile, let target = target {
+            if isMobile, let target = target, let lookAtPoint = lookAtPoint {
                 let nodePos = node.position
                 let distRaw = SCNVector3(target.x - nodePos.x, target.y - nodePos.y, target.z - nodePos.z - minZDist)
                 let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
@@ -80,9 +80,8 @@ class Entity {
                     die()
                 }
                 node.position = SCNVector3(nodePos.x + distRaw.x * speedFactor, nodePos.y + distRaw.y * speedFactor, nodePos.z + distRaw.z * speedFactor)
-                let cameraPos = view.getCameraVector().1
-                let distRawFromCamera = SCNVector3(cameraPos.x - nodePos.x, cameraPos.y - nodePos.y, cameraPos.z - nodePos.z)
-                node.eulerAngles = SCNVector3(sin(distRawFromCamera.y / distRawFromCamera.x), sin(distRawFromCamera.x / distRawFromCamera.z) + 0.5 * Float.pi, sin(distRawFromCamera.y / distRawFromCamera.x))
+                let distRawFromLookAtPoint = SCNVector3(lookAtPoint.x - nodePos.x, lookAtPoint.y - nodePos.y, lookAtPoint.z - nodePos.z)
+                node.eulerAngles = SCNVector3(sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.x, sin(distRawFromLookAtPoint.x / distRawFromLookAtPoint.z) + rotationOffsets.y, sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.z)
                 //node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
                 //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1.0)
             }
@@ -105,6 +104,7 @@ class Entity {
 
     // Rotation
     private var isRotating: Bool = false
+    public var lookAtPoint: SCNVector3?
     private var rotationOffsets: SCNVector3 // Offsets to make entity face forwards.
 
     // SCNNode

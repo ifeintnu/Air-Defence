@@ -13,7 +13,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         let end = Projectile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Projectile(origin: origin, target: target, colour: UIColor.red))
+        addEntity(Projectile(origin: origin, target: target, reversed: true))
     }
     
     public func addEntity(_ entity: Entity) {
@@ -154,7 +154,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     private func setUpWorld() {
         if let currentFrame = sceneView.session.currentFrame {
-            if EnemyShip.scene != nil {
+            if EnemyShip.scene != nil && Projectile.scene != nil {
                 for _ in 1...10 {
                     addEntity(EnemyShip(currentFrame))
                 }
@@ -183,8 +183,9 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Toggle debugging options
         //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
         
-        // Set EnemyShip's scene
+        // Set EnemyShip and Projectile scenes
         EnemyShip.scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
+        Projectile.scene = SCNScene(named: "art.scnassets/missile.scn")!
     }
     
     override func viewWillAppear(_ animated: Bool) {
