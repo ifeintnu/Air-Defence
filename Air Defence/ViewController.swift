@@ -7,13 +7,19 @@ import AVFoundation
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
     @IBOutlet weak var sceneView: ARSCNView!
-    @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
+    func fire(_ colour: UIColor){
         let (direction, position) = getCameraVector()
         let start = Projectile.start
         let end = Projectile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Projectile(origin: origin, target: target, colour: UIColor.red))
+        addEntity(Projectile(origin: origin, target: target, colour: colour))
+    }
+    @IBAction func touchSight(_ sender: Any) {
+        fire(UIColor.red)
+    }
+    @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
+        fire(UIColor.blue)
     }
     
     public func addEntity(_ entity: Entity) {

@@ -24,6 +24,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI0-kD-7md">
                                 <rect key="frame" x="67" y="253" width="240" height="160"/>
                                 <state key="normal" image="sight"/>
+                                <connections>
+                                    <action selector="touchSight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ykm-IX-tr2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

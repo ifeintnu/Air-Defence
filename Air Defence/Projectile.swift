@@ -10,11 +10,21 @@ class Projectile : Entity {
         node.position = origin
         let bitMask = Projectile.bitMask
         super.init(node, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: projectileShape, options: nil)), collisionBitMask: bitMask, contactBitMask: EnemyShip.bitMask)
-        self.minZDist = 0.0
-        self.speed = 7.5
         self.target = target
+        self.setDiffProjectile(colour: colour)
+        self.minZDist = 0.0
+        
     }
-
+    private func setDiffProjectile(colour: UIColor){
+        switch colour {
+        case UIColor.red: // normal
+            self.speed = 15
+        case UIColor.blue: // quick
+            self.speed = 7.5
+        default:
+            self.speed = 7.5
+        }
+    }
     // Bit Masks
     public static let bitMask = 2
     
@@ -22,4 +32,6 @@ class Projectile : Entity {
     public static let start: Float = 0.5
     public static let end: Float = 30.0
     
+    // Gravity
+    private var gravity: Float = 0.0
 }
