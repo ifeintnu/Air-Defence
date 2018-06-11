@@ -6,7 +6,7 @@ import AVFoundation
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
-    @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var sceneView: ARSCNView!
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
         let (direction, position) = getCameraVector()
         let start = Projectile.start
