@@ -10,14 +10,13 @@ class EnemyShip : Entity {
         // The following line is commented out because it moves the geometry away from the physics of the object, which breaks collision detection.
         // Ultimately, this problem had to be remedied in Blender.
         //node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
-        
-        node.eulerAngles = SCNVector3Make(0, yRotationOffset, 0) // This rotates the ship to face forwards.
+
         xDelta = Float(arc4random_uniform(11)) - 5.0
         yDelta = Float(arc4random_uniform(7)) - 3.0
         zDelta = Float(arc4random_uniform(5)) - 2.5
         let zStart = Float(arc4random_uniform(100)) - 110.0
         node.position = SCNVector3(xDelta, yDelta, zStart)
-        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask)
+        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask, rotationOffsets: SCNVector3(0.0, 0.5 * Float.pi, 0.0))
     }
     
     private func fire(_ view: ViewController, target: SCNVector3) {
@@ -62,9 +61,6 @@ class EnemyShip : Entity {
     private var xDelta: Float = 0
     private var yDelta: Float = 0
     private var zDelta: Float = 0
-    
-    // Rotation
-    private let yRotationOffset: Float = 0.5 * Float.pi // Offset to make the ship face forwards rather than sideways.
     
     // Scene
     public static var scene: SCNScene?

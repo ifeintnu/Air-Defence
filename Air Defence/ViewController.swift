@@ -215,6 +215,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
      }
      */
     
+    public static let FPS: Float = 60.0
+    
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
     private var pendingEntities: [Entity] = []
