@@ -2,8 +2,12 @@ import UIKit
 import SceneKit
 import ARKit
 import AVFoundation
+import FirebaseDatabase
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
+    
+    
+    var ref: DatabaseReference!
     
     @IBOutlet var sceneView: ARSCNView!
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
@@ -55,6 +59,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                         if entity.getID() == name {
                             entity.die()
                             entities.remove(at: index)
+                            
                         }
                     }
                 }
@@ -130,6 +135,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
         
         // Set the scene to the view
         sceneView.scene = SCNScene()

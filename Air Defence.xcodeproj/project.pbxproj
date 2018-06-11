@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39D2F8CE8674864A650BF211 /* Pods_Air_Defence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EA919CF87E3FBDE5490256 /* Pods_Air_Defence.framework */; };
 		3FAEB19F20CC88CC00F0EE9B /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 3FAEB19E20CC88CC00F0EE9B /* Sounds */; };
 		3FB42D9720CC2E1C00E3AE01 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */; };
 		3FB42D9920CC30A700E3AE01 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42D9820CC30A700E3AE01 /* Entity.swift */; };
@@ -18,9 +19,11 @@
 		3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */; };
 		3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1402420CB06F0009D6196 /* EnemyShip.swift */; };
 		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
+		CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05EA919CF87E3FBDE5490256 /* Pods_Air_Defence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Air_Defence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FAEB19E20CC88CC00F0EE9B /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		3FB42D9820CC30A700E3AE01 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -33,7 +36,10 @@
 		3FC1401A20CAF8D6009D6196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FC1401C20CAF8D6009D6196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FC1402420CB06F0009D6196 /* EnemyShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
+		7DDCDD8003BBA1F89E598DE1 /* Pods-Air Defence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.release.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.release.xcconfig"; sourceTree = "<group>"; };
+		C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.debug.xcconfig"; sourceTree = "<group>"; };
 		CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
+		CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,17 +47,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39D2F8CE8674864A650BF211 /* Pods_Air_Defence.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		245BB0E669E2E3A8924851E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05EA919CF87E3FBDE5490256 /* Pods_Air_Defence.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3DC8C30C36482FEE9CED0987 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */,
+				7DDCDD8003BBA1F89E598DE1 /* Pods-Air Defence.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3FC1400220CAF8D5009D6196 = {
 			isa = PBXGroup;
 			children = (
 				3FC1400D20CAF8D5009D6196 /* Air Defence */,
 				3FC1400C20CAF8D5009D6196 /* Products */,
+				3DC8C30C36482FEE9CED0987 /* Pods */,
+				245BB0E669E2E3A8924851E1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +104,7 @@
 				3FC1401720CAF8D6009D6196 /* Assets.xcassets */,
 				3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */,
 				3FC1401C20CAF8D6009D6196 /* Info.plist */,
+				CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */,
 			);
 			path = "Air Defence";
 			sourceTree = "<group>";
@@ -89,9 +116,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FC1401F20CAF8D6009D6196 /* Build configuration list for PBXNativeTarget "Air Defence" */;
 			buildPhases = (
+				4763CA15109881DFB817AD03 /* [CP] Check Pods Manifest.lock */,
 				3FC1400720CAF8D5009D6196 /* Sources */,
 				3FC1400820CAF8D5009D6196 /* Frameworks */,
 				3FC1400920CAF8D5009D6196 /* Resources */,
+				6D4D8B35AE78A7369189E4DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -145,10 +174,54 @@
 				3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */,
 				3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */,
 				3FC1401620CAF8D5009D6196 /* Main.storyboard in Resources */,
+				CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4763CA15109881DFB817AD03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Air Defence-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D4D8B35AE78A7369189E4DD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3FC1400720CAF8D5009D6196 /* Sources */ = {
@@ -302,6 +375,7 @@
 		};
 		3FC1402020CAF8D6009D6196 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -320,6 +394,7 @@
 		};
 		3FC1402120CAF8D6009D6196 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DDCDD8003BBA1F89E598DE1 /* Pods-Air Defence.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
