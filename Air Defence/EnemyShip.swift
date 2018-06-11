@@ -35,18 +35,18 @@ class EnemyShip : Entity {
         let distanceFactor = Projectile.start
         // Random movement.
         // TODO: What about when enemy ships bump into each other?
-        /*if super.getTimeCount() % 60 == 0  {
+        if super.getTimeCount() % 60 == 0  {
          let rand = arc4random_uniform(8)
          if rand & 1 == 0 {
-         xDelta = Float(arc4random_uniform(11)) - 5.0
+             xDelta = Float(arc4random_uniform(11)) - 5.0
+             }
+             if rand & 2 == 0 {
+             yDelta = Float(arc4random_uniform(7)) - 3.0
+             }
+             if rand & 4 == 0 {
+             zDelta = Float(arc4random_uniform(15)) - 17.5
+             }
          }
-         if rand & 2 == 0 {
-         yDelta = Float(arc4random_uniform(7)) - 3.0
-         }
-         if rand & 4 == 0 {
-         zDelta = Float(arc4random_uniform(15)) - 17.5
-         }
-         }*/
         
         target = SCNVector3(position.x + (direction.x + xDelta) * distanceFactor, position.y + (direction.y + yDelta) * distanceFactor, position.z + (direction.z + zDelta) * distanceFactor)
         
