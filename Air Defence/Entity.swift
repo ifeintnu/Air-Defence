@@ -20,6 +20,10 @@ class Entity {
         parentNode.addChildNode(node)
     }
     
+    public func getTimeCount() -> UInt64 {
+        return counter
+    }
+    
     public func dead() -> Bool {
         return isDead
     }
@@ -62,6 +66,7 @@ class Entity {
                 }
                 // TODO: Make moving entity face target.
                 node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
+                //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1)
             }
         }
     }
