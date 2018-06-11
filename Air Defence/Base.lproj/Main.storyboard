@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,25 +14,48 @@
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="Air_Defence" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                    <view key="view" contentMode="scaleToFill" id="Isq-uZ-xFn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFE-jl-pkC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI0-kD-7md">
+                                <rect key="frame" x="67" y="253" width="240" height="160"/>
+                                <state key="normal" image="sight"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="NFE-jl-pkC" firstAttribute="top" secondItem="Isq-uZ-xFn" secondAttribute="top" id="9Su-ui-qxo"/>
+                            <constraint firstItem="cI0-kD-7md" firstAttribute="centerY" secondItem="Isq-uZ-xFn" secondAttribute="centerY" id="Cta-NS-GCS"/>
+                            <constraint firstItem="NFE-jl-pkC" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" id="F1A-NS-dn1"/>
+                            <constraint firstItem="cI0-kD-7md" firstAttribute="centerX" secondItem="Isq-uZ-xFn" secondAttribute="centerX" id="a23-Gf-ZxU"/>
+                            <constraint firstItem="NFE-jl-pkC" firstAttribute="trailing" secondItem="Ey6-Px-sji" secondAttribute="trailing" id="bfD-mV-7Tn"/>
+                            <constraint firstItem="NFE-jl-pkC" firstAttribute="bottom" secondItem="Ey6-Px-sji" secondAttribute="bottom" id="y8L-b2-YjU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ey6-Px-sji"/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="tfs-Tv-Wrm" appends="YES" id="7zb-GX-snV"/>
+                            <outletCollection property="gestureRecognizers" destination="tfs-Tv-Wrm" appends="YES" id="Prk-tg-89U"/>
                         </connections>
-                    </arscnView>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="sceneView" destination="NFE-jl-pkC" id="viN-U9-8bb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="up" id="tfs-Tv-Wrm">
                     <connections>
-                        <action selector="swipeUpGesture:" destination="BV1-FR-VrT" id="QhO-g2-TEc"/>
+                        <action selector="swipeUpGesture:" destination="BV1-FR-VrT" id="azO-FQ-lYF"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sight" width="240" height="160"/>
+    </resources>
 </document>
