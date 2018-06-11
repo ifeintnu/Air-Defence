@@ -11,16 +11,27 @@ class Projectile : Entity {
         let bitMask = Projectile.bitMask
         super.init(node, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: projectileShape, options: nil)), collisionBitMask: bitMask, contactBitMask: EnemyShip.bitMask)
         self.target = target
+        
         self.setDiffProjectile(colour: colour)
         self.minZDist = 0.0
         
     }
+    override public func modifyTarget() {
+        self.target?.y += self.gravity
+    }
+    
     private func setDiffProjectile(colour: UIColor){
         switch colour {
-        case UIColor.red: // normal
+        case UIColor.red: // quick
             self.speed = 15
-        case UIColor.blue: // quick
+        case UIColor.blue: // normal
             self.speed = 7.5
+        case UIColor.cyan:
+            self.speed = 7.5
+            self.gravity = +0.15
+        case UIColor.brown:
+            self.speed = 7.5
+            self.gravity = -0.15
         default:
             self.speed = 7.5
         }

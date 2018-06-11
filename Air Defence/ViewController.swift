@@ -19,9 +19,15 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         fire(UIColor.red)
     }
     @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
-        fire(UIColor.blue)
+
+        fire(UIColor.cyan)
+        
+        
     }
     
+    @IBAction func swipeDownGesture(_ sender: Any) {
+        fire(UIColor.brown)
+    }
     public func addEntity(_ entity: Entity) {
         entity.setID(entityCounter)
         pendingEntities.append(entity)
