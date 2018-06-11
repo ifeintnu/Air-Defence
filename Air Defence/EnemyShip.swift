@@ -3,7 +3,7 @@ import SceneKit
 
 class EnemyShip : Entity {
     
-    init(parentNode: SCNNode, _ currentFrame: ARFrame) {
+    init(_ currentFrame: ARFrame) {
         let node = EnemyShip.scene!.rootNode.childNode(withName: "Ship_Type_3_Sphere.005_sh3", recursively: true)!.clone()
         let bitMask = EnemyShip.bitMask
         
@@ -17,14 +17,14 @@ class EnemyShip : Entity {
         zDelta = Float(arc4random_uniform(5)) - 2.5
         let zStart = Float(arc4random_uniform(100)) - 110.0
         node.position = SCNVector3(xDelta, yDelta, zStart)
-        super.init(parentNode, node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask)
+        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask)
     }
     
     private func fire(_ view: ViewController, target: SCNVector3) {
         let position = super.getPosition()
         let start: Float = 3.0
         let origin = SCNVector3(position.x, position.y, position.z + start) // TODO: Why doesn't this work? SCNVector3(position.x + direction.x * start, position.y + (direction.y - yRotationOffset) * start, position.z + direction.z * start)
-        view.addEntity(Projectile(parentNode: view.sceneView.scene.rootNode, origin: origin, target: target, colour: UIColor.blue))
+        view.addEntity(Projectile(origin: origin, target: target, colour: UIColor.blue))
     }
     
     override public func update(_ view: ViewController) {
