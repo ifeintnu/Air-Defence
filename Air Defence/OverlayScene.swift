@@ -14,7 +14,7 @@ class OverlayScene: SKScene {
     //    var pauseNode: SKSpriteNode!
     var scoreNode: SKLabelNode!
     
-    var score = 0 {
+    var score = 100 {
         didSet {
             self.scoreNode.text = "Score: \(self.score)"
         }
@@ -30,7 +30,7 @@ class OverlayScene: SKScene {
         //        self.pauseNode.size = CGSize(width: spriteSize, height: spriteSize)
         //        self.pauseNode.position = CGPoint(x: spriteSize + 8, y: spriteSize + 8)
         
-        self.scoreNode = SKLabelNode(text: "Score: 0")
+        self.scoreNode = SKLabelNode(text: "Score: \(score)")
         self.scoreNode.fontName = "DINAlternate-Bold"
         self.scoreNode.fontColor = UIColor.red
         self.scoreNode.fontSize = 36
