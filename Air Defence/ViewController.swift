@@ -257,7 +257,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             worldIsSetUp = true
         }
     }
-
     
     override var shouldAutorotate: Bool {
         return false
@@ -288,6 +287,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         
         // Set the scene to the view
         sceneView.scene = SCNScene()
+
         if(userID == ""){
             
             
@@ -330,9 +330,10 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 loginView.readPermissions = ["public_profile", "email", "user_friends"]
         }
         
-        
         //Firebase  get data
         ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
+
+            // Get user value
             arr = [NSDictionary]()
             let dic = snapshot.value as? NSDictionary
             for (key,value) in dic! {
@@ -371,13 +372,11 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Use default lighting.
         sceneView.automaticallyUpdatesLighting = true
         sceneView.autoenablesDefaultLighting = true
-        
-        
+
         //scoreBoard
         self.spriteScene = OverlayScene(size: sceneView.bounds.size)
         sceneView.overlaySKScene = self.spriteScene
-        
-        
+
         // Toggle debugging options
         //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
         
