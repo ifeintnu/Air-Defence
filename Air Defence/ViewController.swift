@@ -15,6 +15,24 @@ var arr = [NSDictionary]()
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
+    @IBOutlet weak var logoutBtn: UIButton!
+    @IBOutlet weak var loginBtn: UIButton!
+    @IBAction func ClickLogout(_ sender: Any) {
+        userID = ""
+        userName = ""
+        score = 0
+        userHighScore = 0
+        
+        UserDefaults.standard.set("", forKey: "userID")
+        
+        UserDefaults.standard.set("", forKey: "userName")
+        AlertLoginBtn.isHidden  = false
+        LabelName.text          = ""
+        loginBtn.isHidden       = false
+        logoutBtn.isHidden      = true
+    }
+    @IBOutlet weak var AlertLoginBtn: UIButton!
+    @IBOutlet weak var LabelName: UILabel!
     var ref: DatabaseReference!
     var spriteScene: OverlayScene!
     
@@ -290,6 +308,32 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
         
+//        let defaults = UserDefaults.standard
+//        if let DKuserID = defaults.string(forKey: defaultsKeys.userID) {
+//            print("userID")
+//            print(DKuserID) // Some String Value
+//        }
+//        if let DKuserName = defaults.string(forKey: defaultsKeys.userName) {
+//            print("userName")
+//            print(DKuserName) // Another String Value
+//        }
+        let UDUserID = UserDefaults.standard.string(forKey: "userID") ?? ""
+        let UDUserName = UserDefaults.standard.string(forKey: "userName") ?? ""
+//        print(UDUserID)
+//        print(UDUserName)
+        userID = UDUserID
+        userName = UDUserName
+        
+        if(userID != ""){
+            AlertLoginBtn.isHidden  = true
+            LabelName.text          = userName
+            loginBtn.isHidden       = true
+            logoutBtn.isHidden      = false
+        }else{
+            LabelName.isHidden  = true
+            loginBtn.isHidden   = false
+            logoutBtn.isHidden  = true
+        }
         
         
         
@@ -298,58 +342,59 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Set the scene to the view
         sceneView.scene = SCNScene()
         //FBSDK
-        //        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
-        //        loginButton.center = sceneView.center
-        //
-        //        sceneView.addSubview(loginButton)
-        
-        if (FBSDKAccessToken.current() != nil)
-        {
-            // User is already logged in, do work such as go to next view controller.
-            let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
+//        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
+//        loginButton.center = sceneView.center
+//
+//        sceneView.addSubview(loginButton)
+        if(userID == ""){
             
-            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+            
+            if (FBSDKAccessToken.current() != nil)
+            {
+                // User is already logged in, do work such as go to next view controller.
                 
-                if ((error) != nil)
-                {
-                    // Process error
-                    print("Error: \(error)")
-                }
-                else
-                {
-                    let tmp = result as! [String: AnyObject]
-//                    print("###################")
-//                    print(tmp["first_name"]!)
-                    print("###################")
-                    userName    = tmp["first_name"] as! String
-                    userID      = tmp["id"]         as! String
-                    print(userID)
-                    let scores = self.ref.child("scores");
-                    scores.child(userID).updateChildValues([
-                        "score"     : 0
-                    ])
-                    print("###################")
-                }
-            })
-        }
-        else //not using facebook login
-        {
+                let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
+                
+                graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+                    
+                    if ((error) != nil)
+                    {
+                        // Process error
+                        print("Error: \(error)")
+                    }
+                    else
+                    {
+                        let tmp = result as! [String: AnyObject]
+    //                    print("###################")
+    //                    print(tmp["first_name"]!)
+                        print("###################")
+                        userName    = tmp["first_name"] as! String
+                        userID      = tmp["id"]         as! String
+                        print(userID)
+                        let scores = self.ref.child("scores");
+                        scores.child(userID).updateChildValues([
+                            "score"     : 0
+                        ])
+                        print("###################")
+                    }
+                })
+            }
+            else //not using facebook login
+            {
+    //            AlertLoginBtn.isHidden = false
+            }
             
+            
+            
+                let loginView : FBSDKLoginButton = FBSDKLoginButton()
+                self.view.addSubview(loginView)
+    //            loginView.center = self.view.center
+                loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 70
+                loginView.frame.origin.x = 10
+                loginView.readPermissions = ["public_profile", "email", "user_friends"]
+    //            loginView.delegate = self
+    //        }
         }
-        
-        let now = Date()
-        let timeInterval:TimeInterval = now.timeIntervalSince1970
-        let timeStamp = Int(timeInterval)
-        print("当前时间的时间戳：\(timeStamp)")
-        
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-//            loginView.center = self.view.center
-            loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 50
-            loginView.frame.origin.x = 10
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-//            loginView.delegate = self
-//        }
         
         //Firebase make score to zero
 //        print(userID)
@@ -507,7 +552,29 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        let UDUserID = UserDefaults.standard.string(forKey: "userID") ?? ""
+        let UDUserName = UserDefaults.standard.string(forKey: "userName") ?? ""
+        //        print(UDUserID)
+        //        print(UDUserName)
+        userID = UDUserID
+        userName = UDUserName
         
+        if(userID != ""){
+            AlertLoginBtn.isHidden  = true
+            LabelName.text          = userName
+            loginBtn.isHidden       = true
+            logoutBtn.isHidden      = false
+        }else{
+            LabelName.isHidden  = true
+            loginBtn.isHidden   = false
+            logoutBtn.isHidden  = true
+        
+            if (FBSDKAccessToken.current() != nil){
+                AlertLoginBtn.isHidden = true
+            }else{
+                AlertLoginBtn.isHidden = false
+            }
+        }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
@@ -522,6 +589,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         sceneView.session.pause()
     }
     
+    
     // MARK: - ARSCNViewDelegate
     
     /*
@@ -533,7 +601,9 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
      }
      */
     
+
     public static let FPS: Float = 60.0
+
     
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
