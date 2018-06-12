@@ -22,6 +22,7 @@
 		B60261E520CEA1C000FBA070 /* sight.png in Resources */ = {isa = PBXBuildFile; fileRef = B60261E420CEA1C000FBA070 /* sight.png */; };
 		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
 		CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */; };
+		CEFAB39020D034A000B88DF3 /* RankTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.debug.xcconfig"; sourceTree = "<group>"; };
 		CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
 		CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				3FF43BF120D01DFC00EA2D55 /* Flare.swift */,
 				3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */,
 				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
+				CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */,
 				CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */,
 				3FC1401420CAF8D5009D6196 /* Main.storyboard */,
 				B60261E420CEA1C000FBA070 /* sight.png */,
@@ -248,6 +251,7 @@
 				3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */,
 				3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */,
 				CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */,
+				CEFAB39020D034A000B88DF3 /* RankTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
