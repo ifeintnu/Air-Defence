@@ -10,13 +10,14 @@ class EnemyShip : Entity {
         // The following line is commented out because it moves the geometry away from the physics of the object, which breaks collision detection.
         // Ultimately, this problem had to be remedied in Blender.
         //node.pivot = SCNMatrix4MakeTranslation(-1.5, 0.0, 2.0) // This centres the ship with respect to its scene's root node.
-
+        
         xDelta = Float(arc4random_uniform(11)) - 5.0
         yDelta = Float(arc4random_uniform(7)) - 3.0
         zDelta = Float(arc4random_uniform(5)) - 2.5
         let zStart = Float(arc4random_uniform(100)) - 110.0
         node.position = SCNVector3(xDelta, yDelta, zStart)
-        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Projectile.bitMask, rotationOffsets: SCNVector3(0.0, 0.5 * Float.pi, 0.0))
+        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Missile.bitMask, rotationOffsets: SCNVector3(0.0, 0.5 * Float.pi, 0.0))
+        super.isEnemy = true
     }
     
     private func fire(_ view: ViewController, target: SCNVector3) {
@@ -27,26 +28,26 @@ class EnemyShip : Entity {
         let distRawNormalised = SCNVector3(distRaw.x / dist, distRaw.y / dist, distRaw.z / dist)
         let start: Float = 1.75
         let origin = SCNVector3(nodePos.x + distRawNormalised.x * start, nodePos.y + distRawNormalised.y * start, nodePos.z + distRawNormalised.z * start)
-        view.addEntity(Projectile(origin: origin, target: target))
+        view.addEntity(Missile(origin: origin, target: target))
     }
     
     override public func update(_ view: ViewController) {
         let (direction, position) = view.getCameraVector()
-        let distanceFactor = Projectile.start
-
+        let distanceFactor = Missile.start
+        
         // Random movement.
         if super.getTimeCount() % 60 == 0  {
-         let rand = arc4random_uniform(8)
-         if rand & 1 == 0 {
-             xDelta = Float(arc4random_uniform(11)) - 5.0
-             }
-             if rand & 2 == 0 {
-             yDelta = Float(arc4random_uniform(7)) - 3.0
-             }
-             if rand & 4 == 0 {
-             zDelta = Float(arc4random_uniform(15)) - 17.5
-             }
-         }
+            let rand = arc4random_uniform(8)
+            if rand & 1 == 0 {
+                xDelta = Float(arc4random_uniform(11)) - 5.0
+            }
+            if rand & 2 == 0 {
+                yDelta = Float(arc4random_uniform(7)) - 3.0
+            }
+            if rand & 4 == 0 {
+                zDelta = Float(arc4random_uniform(15)) - 17.5
+            }
+        }
         
         super.target = SCNVector3(position.x + (direction.x + xDelta) * distanceFactor, position.y + (direction.y + yDelta) * distanceFactor, position.z + (direction.z + zDelta) * distanceFactor)
         super.lookAtPoint = position
