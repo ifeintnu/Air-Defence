@@ -4,12 +4,13 @@ import SceneKit
 
 class Entity {
     
-    init(_ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int, rotationOffsets: SCNVector3 = SCNVector3(0.0, 0.0, 0.0)) {
+    init(_ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int, rotationOffsets: SCNVector3 = SCNVector3(0.0, 0.0, 0.0), rotationallyFixed: Bool = false) {
         self.node = node
         self.isMobile = isMobile
         self.isTemporary = isTemporary
         self.rotationOffsets = rotationOffsets
-
+        self.rotationallyFixed = rotationallyFixed
+        
         node.physicsBody = physicsBody
         node.physicsBody?.mass = mass
         node.physicsBody?.isAffectedByGravity = isAffectedByGravity
@@ -62,7 +63,7 @@ class Entity {
     public func stopRotating() {
         isRotating = false
     }
-
+    
     public func update(_ view: ViewController) {
         if !dead() {
             // Using a time counter should be okay because the frame rate seems to be capped at sixty FPS.
@@ -84,7 +85,12 @@ class Entity {
                 }
                 node.position = SCNVector3(nodePos.x + distRaw.x * speedFactor, nodePos.y + distRaw.y * speedFactor, nodePos.z + distRaw.z * speedFactor)
                 let distRawFromLookAtPoint = SCNVector3(lookAtPoint.x - nodePos.x, lookAtPoint.y - nodePos.y, lookAtPoint.z - nodePos.z)
-                node.eulerAngles = SCNVector3(sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.x, sin(distRawFromLookAtPoint.x / distRawFromLookAtPoint.z) + rotationOffsets.y, sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.z)
+                if rotationallyFixed {
+                    node.eulerAngles = SCNVector3(rotationOffsets.x, rotationOffsets.y, rotationOffsets.z)
+                }
+                else {
+                    node.eulerAngles = SCNVector3(sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.x, sin(distRawFromLookAtPoint.x / distRawFromLookAtPoint.z) + rotationOffsets.y, sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.z)
+                }
                 //node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
                 //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1.0)
             }
@@ -97,23 +103,27 @@ class Entity {
     
     // ID
     private var id: String = ""
-
+    
     // Movement
     private let distBuffer: Float = 0.5
     private var isMobile: Bool = false
     public var minZDist: Float = 2.0
     public var speed: Float = 5.0
     public var target: SCNVector3?
-
+    
     // Rotation
     private var isRotating: Bool = false
     public var lookAtPoint: SCNVector3?
+    private var rotationallyFixed: Bool
     private var rotationOffsets: SCNVector3 // Offsets to make entity face forwards.
-
+    
     // SCNNode
     private var node: SCNNode
-
+    
     // Time counter
     private var counter: UInt64 = 0
-
+    
+    // Type
+    public var isEnemy: Bool = false
+    
 }
