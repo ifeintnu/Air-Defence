@@ -44,7 +44,8 @@ playground.xcworkspace
 .build/
 
 # CocoaPods - Refactored to standalone file
-
+Pods/
+Podfile.lock
 # Carthage - Refactored to standalone file
 
 # fastlane
@@ -60,6 +61,8 @@ fastlane/screenshots
 fastlane/test_output
 
 .DS_Store
+*/.DS_Store
+*/*/.DS_Store
 *.*~
 # End of https://www.gitignore.io/api/swift
 #
