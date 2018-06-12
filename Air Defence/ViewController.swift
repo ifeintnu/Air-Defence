@@ -265,6 +265,10 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         }
     }
     
+    override var shouldAutorotate: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
