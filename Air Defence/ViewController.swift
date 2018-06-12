@@ -10,6 +10,7 @@ import FBSDKLoginKit
 var score = 0
 var userID = ""
 var userName = ""
+var arr = [NSDictionary]()
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
@@ -97,22 +98,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                                 ])
                             self.spriteScene.score = score
                             
-                            scores.queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
-//                                (scores).queryOrdered(byChild: "score")
-//                            print(scoreQuery)
-//                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
-                                // Get user value
-//                                print(snapshot.value?)
-//                                let value = snapshot.value as? NSDictionary
-//                                print(value!)
-//                                let username = value?["score"] as? Int ?? 0
-//                                let user = User(username: username)
-//                                print(username)
-                                
-                                // ...
-                            }) { (error) in
-                                print(error.localizedDescription)
-                            }
+                            
                             deadEntities.append(entity)
                         }
                         else {
@@ -225,11 +211,60 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         navigationController?.isNavigationBarHidden = true
         
         
+        
+        
         ref = Database.database().reference()
         
         // Set the scene to the view
         sceneView.scene = SCNScene()
 
+        
+        ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
+            //                                (scores).queryOrdered(byChild: "score")
+            //                            print(scoreQuery)
+            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            //                                print(snapshot.value?)
+            //                                let value = snapshot.value as? NSDictionary
+            //                                print(value!)
+            //                                let username = value?["score"] as? Int ?? 0
+            //                                let user = User(username: username)
+            //                                print(username)
+            arr = [NSDictionary]()
+            let dic = snapshot.value as? NSDictionary
+            print(dic!)
+            
+            for (key,value) in dic! {
+                print("\(key) : \(value)")
+                var childDic = value as? NSDictionary
+                //                                                childDic["name"]!
+                //                                                childDic!["name"]    = childDic!["name"] as! String
+                //                                                print(name)
+                //                                                childDic["score"] = childDic["score"] as Int
+                var appendIndex = -1
+                for (index, element) in arr.enumerated(){
+                    print(index)
+                    print(element["score"]!)
+                    let e = element["score"] as! Int
+                    let c = childDic!["score"] as! Int
+                    if(e<c){
+                        appendIndex = index
+                    }
+                }
+                if(appendIndex>=0){
+                    arr.insert(childDic!, at: appendIndex)
+                }else{
+                    arr.append(childDic!)
+                }
+            }
+            //                                            arr = arr.sort(by: {$0.score > $1.score})
+//            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
+            print(arr)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
 
         //FBSDK
 //        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])

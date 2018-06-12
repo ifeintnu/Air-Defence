@@ -6,12 +6,52 @@
 //
 
 import UIKit
+//import FirebaseDatabase
+
+
+
 
 class RankTableViewController: UITableViewController {
-
+//    var ref: DatabaseReference!
+    let companyName = ["Apple", "Google", "MS"]
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
+        
+//        ref = Database.database().reference()
+//        let scores = self.ref.child("scores")
+//        scores.queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
+//            //                                (scores).queryOrdered(byChild: "score")
+//            //                            print(scoreQuery)
+//            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            //                                print(snapshot.value?)
+////                                            let dic = snapshot.value as? NSDictionary
+////                                            print(dic!)
+////
+////                                            for (key,value) in dic! {
+////                                                print("\(key) : \(value)")
+////                                                let childDic = value as? NSDictionary
+//////                                                childDic["name"]!
+//////                                                childDic!["name"]    = childDic!["name"] as! String
+//////                                                print(name)
+//////                                                childDic["score"] = childDic["score"] as Int
+////                                                arr.append(childDic!)
+////                                            }
+//////                                            arr = arr.sort(by: {$0.score > $1.score})
+////                                            print(arr)
+////                                            print(type(of:arr[0]["name"]))
+////                                            print(type(of:arr[0]["score"]))
+////                                            NSArray * values = [dictionary value];
+////                                            print(values)
+//            //                                let username = value?["score"] as? Int ?? 0
+//            //                                let user = User(username: username)
+//            //                                print(username)
+//            
+//            // ...
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,25 +66,33 @@ class RankTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+//        print(arr.count)
+        return arr.count
+//        return companyName.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
-        // Configure the cell...
-
+//        print(indexPath)
+//         Configure the cell...
+        
+        let newScore = arr[indexPath.row]["score"] as! Int
+        let scoreString = String(newScore)
+        cell.textLabel?.text = scoreString
+        cell.detailTextLabel?.text = arr[indexPath.row]["name"] as! String
+//        "\(arr?.objectAtIndex(indexPath.row).name)"
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

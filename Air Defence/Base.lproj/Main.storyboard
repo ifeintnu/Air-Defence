@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Rank-->
         <scene sceneID="Ay9-rS-WUa">
             <objects>
                 <tableViewController id="Bvw-dB-qIE" customClass="RankTableViewController" customModule="Air_Defence" customModuleProvider="target" sceneMemberID="viewController">
@@ -76,12 +76,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iSY-Tq-Fby">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="4ht-5p-n5P" detailTextLabel="oxq-4R-L4T" style="IBUITableViewCellStyleValue2" id="iSY-Tq-Fby">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iSY-Tq-Fby" id="175-a0-7KI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ht-5p-n5P">
+                                            <rect key="frame" x="16" y="4" width="91" height="36"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oxq-4R-L4T">
+                                            <rect key="frame" x="113" y="4" width="74" height="36"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -90,7 +106,7 @@
                             <outlet property="delegate" destination="Bvw-dB-qIE" id="cqm-cq-gxl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="YYL-nZ-1ah" customClass="Ran"/>
+                    <navigationItem key="navigationItem" title="Rank" id="YYL-nZ-1ah" customClass="Ran"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nMb-dH-H0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
