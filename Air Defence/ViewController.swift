@@ -66,24 +66,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         fireFlare()
     }
     
-    //    @IBAction func loginWithFacebook(_ sender: UIButton) {
-    //        let loginManager = LoginManager()
-    //        loginManager.logIn(readPermissions: [.publicProfile,.email,.userFriends], viewController: self) { (loginResult) in
-    //            switch loginResult{
-    //            case .failed(let error):
-    //                print(error)
-    //            //失敗的時候回傳
-    //            case .cancelled:
-    //                print("the user cancels login")
-    //            //取消時回傳內容
-    //            case .success(grantedPermissions: _, declinedPermissions: _, token: _):
-    //                self.getDetails()
-    //                print("user log in")
-    //                //成功時print("user log in")
-    //            }
-    //        }
-    //    }
-    
     public func addEntity(_ entity: Entity) {
         entity.setID(entityCounter)
         pendingEntities.append(entity)
@@ -251,29 +233,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         }
     }
     
-    /*func renderer(_ renderer: SCNSceneRenderer, didSimulatePhysicsAtTime time: TimeInterval) {
-     if worldIsSetUp {
-     var newEntities: [Entity] = pendingEntities
-     pendingEntities = []
-     for entity in entities {
-     if entity.dead() {
-     deadEntities.append(entity)
-     }
-     else {
-     entity.update(self)
-     newEntities.append(entity)
-     }
-     }
-     entities = newEntities
-     for entity in deadEntities {
-     entity.remove()
-     }
-     }
-     else {
-     setUpWorld()
-     }
-     }*/
-    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         
@@ -294,10 +253,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             worldIsSetUp = true
         }
     }
-//    override func viewWillAppear() {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.navigationBarHidden = true
-//    }
+
 
     
     override var shouldAutorotate: Bool {
@@ -308,19 +264,10 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
         
-//        let defaults = UserDefaults.standard
-//        if let DKuserID = defaults.string(forKey: defaultsKeys.userID) {
-//            print("userID")
-//            print(DKuserID) // Some String Value
-//        }
-//        if let DKuserName = defaults.string(forKey: defaultsKeys.userName) {
-//            print("userName")
-//            print(DKuserName) // Another String Value
-//        }
+
         let UDUserID = UserDefaults.standard.string(forKey: "userID") ?? ""
         let UDUserName = UserDefaults.standard.string(forKey: "userName") ?? ""
-//        print(UDUserID)
-//        print(UDUserName)
+
         userID = UDUserID
         userName = UDUserName
         
@@ -342,10 +289,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Set the scene to the view
         sceneView.scene = SCNScene()
         //FBSDK
-//        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
-//        loginButton.center = sceneView.center
-//
-//        sceneView.addSubview(loginButton)
+
         if(userID == ""){
             
             
@@ -365,8 +309,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     else
                     {
                         let tmp = result as! [String: AnyObject]
-    //                    print("###################")
-    //                    print(tmp["first_name"]!)
                         print("###################")
                         userName    = tmp["first_name"] as! String
                         userID      = tmp["id"]         as! String
@@ -381,44 +323,25 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             }
             else //not using facebook login
             {
-    //            AlertLoginBtn.isHidden = false
             }
             
             
             
                 let loginView : FBSDKLoginButton = FBSDKLoginButton()
                 self.view.addSubview(loginView)
-    //            loginView.center = self.view.center
                 loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 70
                 loginView.frame.origin.x = 10
                 loginView.readPermissions = ["public_profile", "email", "user_friends"]
-    //            loginView.delegate = self
-    //        }
         }
         
-        //Firebase make score to zero
-//        print(userID)
-//        let scores = self.ref.child("scores");
-//        scores.child(userID).setValue([
-////            "name"      : userName  ,
-//            "score"     : 0     ,
-////            "highScore" : userHighScore
-//        ])
-        
+
         
         
         //Firebase  get data
         ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
-            //                                (scores).queryOrdered(byChild: "score")
-            //                            print(scoreQuery)
-            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+
             // Get user value
-            //                                print(snapshot.value?)
-            //                                let value = snapshot.value as? NSDictionary
-            //                                print(value!)
-            //                                let username = value?["score"] as? Int ?? 0
-            //                                let user = User(username: username)
-            //                                print(username)
+
             arr = [NSDictionary]()
             let dic = snapshot.value as? NSDictionary
             for (key,value) in dic! {
@@ -432,7 +355,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 }
                 arr.append(childDic!)
             }
-            for i in 0..<arr.count{
+            for _ in 0..<arr.count{
                 for j in 0..<arr.count - 1{
                     if arr[j]["highScore"] as! Int! < arr[j+1]["highScore"] as! Int! {
                         let temp = arr[j]
@@ -442,11 +365,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 }
             }
             
-            //                                            arr = arr.sort(by: {$0.score > $1.score})
-            //            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
-//            print(arr)
-            
-            // ...
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -466,11 +384,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         // Use default lighting.
         sceneView.automaticallyUpdatesLighting = true
         sceneView.autoenablesDefaultLighting = true
-        
-        //shipHud = HUD(size: self.view.bounds.size)
-        //sceneView.overlaySKScene = SKScene(size: self.view.bounds.size)
-        //sceneView.overlaySKScene?.addChild(SKSpriteNode(imageNamed: "art.scnassets/crosshairs.png"))
-        
         
         //scoreBoard
         self.spriteScene = OverlayScene(size: sceneView.bounds.size)
