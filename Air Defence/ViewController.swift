@@ -249,11 +249,15 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     let tmp = result as! [String: AnyObject]
 //                    print("###################")
 //                    print(tmp["first_name"]!)
-//                    print("###################")
+                    print("###################")
                     userName    = tmp["first_name"] as! String
                     userID      = tmp["id"]         as! String
-//                    print(userID)
-//                    print("###################")
+                    print(userID)
+//                    let scores = self.ref.child("scores");
+//                    scores.child(userID).setValue([
+//                        "score"     : 0
+//                    ])
+                    print("###################")
                 }
             })
         }
@@ -269,7 +273,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
 //        }
         
         //Firebase make score to zero
-        
+//        print(userID)
 //        let scores = self.ref.child("scores");
 //        scores.child(userID).setValue([
 ////            "name"      : userName  ,
