@@ -297,44 +297,27 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             //                                print(username)
             arr = [NSDictionary]()
             let dic = snapshot.value as? NSDictionary
-//            print(dic!)
-            
             for (key,value) in dic! {
-//                print("\(key) : \(value)")
                 
+                let childDic = value as? NSDictionary
+                let keyString = key as! String
                 
-                
-                
-                var childDic = value as? NSDictionary
-                var keyString = key as! String
-                
-                if(keyString == userID){
-//                    print(childDic!["highScore"]!)
+                if (keyString == userID) {
                     userHighScore = childDic!["highScore"]  as! Int
                     score         = childDic!["score"]      as! Int
                 }
-                
-                //                                                childDic["name"]!
-                //                                                childDic!["name"]    = childDic!["name"] as! String
-                //                                                print(name)
-                //                                                childDic["score"] = childDic["score"] as Int
-                var appendIndex = -1
-                for (index, element) in arr.enumerated(){
-//                    print(index)
-//                    print(element["score"]!)
-                    
-                    let e = element["highScore"] as! Int
-                    let c = childDic!["highScore"] as! Int
-                    if(e<c){
-                        appendIndex = index
+                arr.append(childDic!)
+            }
+            for i in 0..<arr.count{
+                for j in 0..<arr.count - 1{
+                    if arr[j]["highScore"] as! Int! < arr[j+1]["highScore"] as! Int! {
+                        let temp = arr[j]
+                        arr[j] = arr[j+1]
+                        arr[j+1] = temp
                     }
                 }
-                if(appendIndex>=0){
-                    arr.insert(childDic!, at: appendIndex)
-                }else{
-                    arr.append(childDic!)
-                }
             }
+            
             //                                            arr = arr.sort(by: {$0.score > $1.score})
             //            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
 //            print(arr)
