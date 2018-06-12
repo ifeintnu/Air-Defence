@@ -3,11 +3,19 @@ import SceneKit
 import SpriteKit
 import ARKit
 import AVFoundation
+import FirebaseDatabase
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+var score = 0
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
+    var ref: DatabaseReference!
+    var spriteScene: OverlayScene!
+    
     @IBOutlet weak var sceneView: ARSCNView!
-    @IBAction func swipeUpGesture(_ sender: UISwipeGestureRecognizer) {
+    func fire(_ colour: UIColor){
         let (direction, position) = getCameraVector()
         let start = Projectile.start
         let end = Projectile.end
@@ -15,6 +23,66 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
         addEntity(Projectile(origin: origin, target: target, reversed: true))
     }
+    var i = 0
+    @IBAction func Rotation(_ sender: Any) {
+        i += 1
+        i %= 35
+        switch i {
+        case 0:
+            fire(UIColor.brown)
+        case 5:
+            fire(UIColor.blue)
+        case 10:
+            fire(UIColor.red)
+        case 15:
+            fire(UIColor.yellow)
+        case 20:
+            fire(UIColor.green)
+        case 25:
+            fire(UIColor.black)
+        case 30:
+            fire(UIColor.cyan)
+            
+        default:
+            print(i)
+        }
+    }
+
+    @IBAction func SwipeRight(_ sender: Any) {
+        fire(UIColor.yellow)
+        
+    }
+    @IBAction func SwipeLeft(_ sender: Any) {
+        fire(UIColor.green)
+    }
+    @IBAction func touchSight(_ sender: Any) {
+        fire(UIColor.red)
+    }
+    @IBAction func SwipeDown(_ sender: Any) {
+        fire(UIColor.brown)
+    }
+    
+    
+    @IBAction func SwipeUp(_ sender: Any) {
+        fire(UIColor.cyan)
+    }
+//    @IBAction func loginWithFacebook(_ sender: UIButton) {
+//        let loginManager = LoginManager()
+//        loginManager.logIn(readPermissions: [.publicProfile,.email,.userFriends], viewController: self) { (loginResult) in
+//            switch loginResult{
+//            case .failed(let error):
+//                print(error)
+//            //失敗的時候回傳
+//            case .cancelled:
+//                print("the user cancels login")
+//            //取消時回傳內容
+//            case .success(grantedPermissions: _, declinedPermissions: _, token: _):
+//                self.getDetails()
+//                print("user log in")
+//                //成功時print("user log in")
+//            }
+//        }
+//    }
     
     public func addEntity(_ entity: Entity) {
         entity.setID(entityCounter)
@@ -61,6 +129,10 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     for entity in entities {
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
+                            score=score + 5
+                            self.ref.child("history").setValue(["score": score])
+                            self.spriteScene.score = self.spriteScene.score + 5
+                            print(score)
                             deadEntities.append(entity)
                         }
                         else {
@@ -166,9 +238,35 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        ref = Database.database().reference()
+        
         // Set the scene to the view
         sceneView.scene = SCNScene()
 
+
+        //FBSDK
+//        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
+//        loginButton.center = sceneView.center
+//
+//        sceneView.addSubview(loginButton)
+        
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            // User is already logged in, do work such as go to next view controller.
+//        }
+//        else
+//        {
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+//            loginView.center = self.view.center
+            loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 50
+            loginView.frame.origin.x = 10
+            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+//            loginView.delegate = self
+//        }
+        
         // Set the view's delegates
         sceneView.delegate = self
         sceneView.scene.physicsWorld.contactDelegate = self
@@ -180,6 +278,12 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         //sceneView.overlaySKScene = SKScene(size: self.view.bounds.size)
         //sceneView.overlaySKScene?.addChild(SKSpriteNode(imageNamed: "art.scnassets/crosshairs.png"))
         
+        
+        //scoreBoard
+        self.spriteScene = OverlayScene(size: sceneView.bounds.size)
+        sceneView.overlaySKScene = self.spriteScene
+        
+        
         // Toggle debugging options
         //sceneView.debugOptions = //.showPhysicsShapes // ARSCNDebugOptions.showWorldOrigin
         
@@ -187,6 +291,20 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         EnemyShip.scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
         Projectile.scene = SCNScene(named: "art.scnassets/missile.scn")!
     }
+    
+//    @objc func loginButtonClicked() {
+//        let loginManager = FBSDKLoginManager()
+//        loginManager.logIn([ .publicProfile ], viewController: self) { loginResult in
+//            switch loginResult {
+//            case .failed(let error):
+//                print(error)
+//            case .cancelled:
+//                print("User cancelled login.")
+//            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+//                self.getFBUserData()
+//            }
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

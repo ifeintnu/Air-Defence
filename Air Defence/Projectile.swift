@@ -18,7 +18,30 @@ class Projectile : Entity {
         super.lookAtPoint = target
         super.startRotating()
     }
+    
+    private func setDiffProjectile(colour: UIColor){
+        switch colour {
+        case UIColor.red: // quick
+            self.speed = 15
+        case UIColor.blue: // normal
+            self.speed = 7.5
+        case UIColor.cyan:
+            self.speed = 7.5
+            self.gravity = +0.15
+        case UIColor.brown:
+            self.speed = 7.5
+            self.gravity = -0.15
+        case UIColor.yellow:
+            self.speed = 7.5
+            self.left = 0.15
+        case UIColor.green:
+            self.speed = 7.5
+            self.left = -0.15
 
+        default:
+            self.speed = 7.5
+        }
+    }
     // Bit Masks
     public static let bitMask = 2
     
@@ -26,7 +49,9 @@ class Projectile : Entity {
     public static let start: Float = 0.5
     public static let end: Float = 30.0
     
+    // Gravity
+    private var gravity: Float = 0.0
+    private var left: Float = 0.0
     // Scene
     public static var scene: SCNScene?
-    
 }

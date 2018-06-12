@@ -46,7 +46,9 @@ class Entity {
         let removeAction = SCNAction.removeFromParentNode()
         node.runAction(SCNAction.sequence([removeAction]))
     }
-    
+    public func modifyTarget() {
+        // should implement in projectile
+    }
     public func setID(_ id: Int) {
         self.id = String(id)
         node.name = self.id
@@ -70,6 +72,7 @@ class Entity {
             if isRotating {
                 node.eulerAngles = SCNVector3Make(0, Float(counter % 360) / 180.0 * Float.pi, 0)
             }
+            self.modifyTarget()
             
             if isMobile, let target = target, let lookAtPoint = lookAtPoint {
                 let nodePos = node.position
