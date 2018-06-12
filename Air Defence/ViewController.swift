@@ -601,10 +601,9 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
      }
      */
     
-<<<<<<< HEAD
+
     public static let FPS: Float = 60.0
-=======
->>>>>>> 01f2dc9c09628c054ceaca7b6a4371234cd2a320
+
     
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
