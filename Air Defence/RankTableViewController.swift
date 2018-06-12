@@ -13,7 +13,7 @@ import UIKit
 
 class RankTableViewController: UITableViewController {
 //    var ref: DatabaseReference!
-    let companyName = ["Apple", "Google", "MS"]
+//    let companyName = ["Apple", "Google", "MS"]
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
@@ -88,7 +88,8 @@ class RankTableViewController: UITableViewController {
         let newScore = arr[indexPath.row]["highScore"] as! Int
         let scoreString = String(newScore)
         cell.textLabel?.text = scoreString
-        cell.detailTextLabel?.text = arr[indexPath.row]["name"] as! String
+        let name = arr[indexPath.row]["name"] as! String
+        cell.detailTextLabel?.text = "         " + name
 //        "\(arr?.objectAtIndex(indexPath.row).name)"
         return cell
     }

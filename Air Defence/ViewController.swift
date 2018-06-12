@@ -253,16 +253,24 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     userName    = tmp["first_name"] as! String
                     userID      = tmp["id"]         as! String
                     print(userID)
-//                    let scores = self.ref.child("scores");
-//                    scores.child(userID).setValue([
-//                        "score"     : 0
-//                    ])
+                    let scores = self.ref.child("scores");
+                    scores.child(userID).updateChildValues([
+                        "score"     : 0
+                    ])
                     print("###################")
                 }
             })
         }
-//        else
-//        {
+        else //not using facebook login
+        {
+            
+        }
+        
+        let now = Date()
+        let timeInterval:TimeInterval = now.timeIntervalSince1970
+        let timeStamp = Int(timeInterval)
+        print("当前时间的时间戳：\(timeStamp)")
+        
             let loginView : FBSDKLoginButton = FBSDKLoginButton()
             self.view.addSubview(loginView)
 //            loginView.center = self.view.center
