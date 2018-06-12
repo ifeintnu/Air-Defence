@@ -23,6 +23,7 @@
 		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
 		CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */; };
 		CEFAB39020D034A000B88DF3 /* RankTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */; };
+		CEFAB39420D0491100B88DF3 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFAB39320D0491100B88DF3 /* UserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayScene.swift; sourceTree = "<group>"; };
 		CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankTableViewController.swift; sourceTree = "<group>"; };
+		CEFAB39320D0491100B88DF3 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */,
 				3FC1401C20CAF8D6009D6196 /* Info.plist */,
 				CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */,
+				CEFAB39320D0491100B88DF3 /* UserViewController.swift */,
 			);
 			path = "Air Defence";
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB42D9720CC2E1C00E3AE01 /* Projectile.swift in Sources */,
+				CEFAB39420D0491100B88DF3 /* UserViewController.swift in Sources */,
 				3FB42D9920CC30A700E3AE01 /* Entity.swift in Sources */,
 				3FF43BF220D01DFD00EA2D55 /* Flare.swift in Sources */,
 				3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */,

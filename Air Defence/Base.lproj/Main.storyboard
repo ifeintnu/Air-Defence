@@ -30,7 +30,7 @@
                                 </connections>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI0-kD-7md">
-                                <rect key="frame" x="67" y="253" width="240" height="160"/>
+                                <rect key="frame" x="67.5" y="253.5" width="240" height="160"/>
                                 <state key="normal" image="sight"/>
                                 <connections>
                                     <action selector="touchSight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ykm-IX-tr2"/>
@@ -46,6 +46,60 @@
                                     <segue destination="Bvw-dB-qIE" kind="show" id="eOZ-NC-xU4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmN-JN-q6d">
+                                <rect key="frame" x="22" y="607" width="150" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="9aM-A9-9HN"/>
+                                </constraints>
+                                <state key="normal" title="Set your ID">
+                                    <color key="titleColor" red="1" green="0.034920876077064067" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="l0v-1A-AG9" kind="show" id="qEN-vZ-vbB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vax-VH-kdl">
+                                <rect key="frame" x="-62.5" y="33.5" width="500" height="600"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="2FZ-Ci-R06"/>
+                                    <constraint firstAttribute="width" constant="500" id="xmA-eA-TzP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <state key="normal" title="Please Login!!!">
+                                    <color key="titleColor" red="1" green="0.034920876080000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoJ-RQ-dVM">
+                                <rect key="frame" x="60" y="562" width="73.5" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNU-go-lCU">
+                                <rect key="frame" x="71" y="607" width="72" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="l2X-Cw-DPJ"/>
+                                </constraints>
+                                <state key="normal" title="Log out">
+                                    <color key="titleColor" red="1" green="0.10516631818251154" blue="0.042021320585064803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="ClickLogout:" destination="BV1-FR-VrT" eventType="touchUpInside" id="s9Z-2o-MMm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -54,10 +108,18 @@
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="top" secondItem="Isq-uZ-xFn" secondAttribute="top" id="9Su-ui-qxo"/>
                             <constraint firstItem="cI0-kD-7md" firstAttribute="centerY" secondItem="Isq-uZ-xFn" secondAttribute="centerY" id="Cta-NS-GCS"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" id="F1A-NS-dn1"/>
+                            <constraint firstItem="Ey6-Px-sji" firstAttribute="bottom" secondItem="pmN-JN-q6d" secondAttribute="bottom" constant="30" id="IBO-Rt-LRb"/>
+                            <constraint firstItem="pmN-JN-q6d" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" constant="22" id="Q4h-o4-yfy"/>
+                            <constraint firstItem="Ey6-Px-sji" firstAttribute="bottom" secondItem="yNU-go-lCU" secondAttribute="bottom" constant="30" id="Tsf-tw-8Rw"/>
+                            <constraint firstItem="CoJ-RQ-dVM" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" constant="60" id="UKb-sj-YcO"/>
                             <constraint firstItem="cI0-kD-7md" firstAttribute="centerX" secondItem="Isq-uZ-xFn" secondAttribute="centerX" id="a23-Gf-ZxU"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="trailing" secondItem="Ey6-Px-sji" secondAttribute="trailing" id="bfD-mV-7Tn"/>
+                            <constraint firstItem="Vax-VH-kdl" firstAttribute="centerY" secondItem="Isq-uZ-xFn" secondAttribute="centerY" id="c2N-Sz-DC7"/>
                             <constraint firstItem="Ey6-Px-sji" firstAttribute="trailing" secondItem="Fkc-cv-vZX" secondAttribute="trailing" constant="20" id="euY-cC-UeY"/>
+                            <constraint firstItem="yNU-go-lCU" firstAttribute="leading" secondItem="Ey6-Px-sji" secondAttribute="leading" constant="71" id="lW9-K1-t5u"/>
+                            <constraint firstItem="pmN-JN-q6d" firstAttribute="top" secondItem="CoJ-RQ-dVM" secondAttribute="bottom" constant="8" id="v1X-Ag-RqC"/>
                             <constraint firstItem="NFE-jl-pkC" firstAttribute="bottom" secondItem="Ey6-Px-sji" secondAttribute="bottom" id="y8L-b2-YjU"/>
+                            <constraint firstItem="Vax-VH-kdl" firstAttribute="centerX" secondItem="Isq-uZ-xFn" secondAttribute="centerX" id="zl8-1j-XIb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ey6-Px-sji"/>
                         <connections>
@@ -66,6 +128,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="8uM-Oq-Vke"/>
                     <connections>
+                        <outlet property="AlertLoginBtn" destination="Vax-VH-kdl" id="9oJ-YB-i1G"/>
+                        <outlet property="LabelName" destination="CoJ-RQ-dVM" id="fDm-Um-GFU"/>
+                        <outlet property="loginBtn" destination="pmN-JN-q6d" id="yca-O0-C94"/>
+                        <outlet property="logoutBtn" destination="yNU-go-lCU" id="gcr-gx-pd5"/>
                         <outlet property="sceneView" destination="NFE-jl-pkC" id="viN-U9-8bb"/>
                     </connections>
                 </viewController>
@@ -97,6 +163,49 @@
                 </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+        </scene>
+        <!--Create your account-->
+        <scene sceneID="gY1-l6-aCE">
+            <objects>
+                <viewController id="l0v-1A-AG9" customClass="UserViewController" customModule="Air_Defence" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Nd-qK-Xdx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2W-AG-vGW">
+                                <rect key="frame" x="210" y="183" width="291" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75N-H2-FkE">
+                                <rect key="frame" x="68" y="188" width="91" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLy-2R-Swb">
+                                <rect key="frame" x="554" y="188" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="ClickAction:" destination="l0v-1A-AG9" eventType="touchUpInside" id="xD8-X4-dQl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="JhX-Ol-mpO"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create your account" id="DSO-3p-9eh"/>
+                    <connections>
+                        <outlet property="usernameField" destination="S2W-AG-vGW" id="BHW-ob-9OE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6yW-6V-Hik" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="114.3884892086331" y="800.7194244604317"/>
         </scene>
         <!--Rank-->
         <scene sceneID="Ay9-rS-WUa">
