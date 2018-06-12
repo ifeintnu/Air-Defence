@@ -460,8 +460,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         sceneView.delegate = self
         sceneView.scene.physicsWorld.contactDelegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        // Don't show statistics such as fps and timing information
+        sceneView.showsStatistics = false
         
         // Use default lighting.
         sceneView.automaticallyUpdatesLighting = true
