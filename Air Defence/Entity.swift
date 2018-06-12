@@ -1,12 +1,14 @@
 import ARKit
+import Foundation
 import SceneKit
 
 class Entity {
     
-    init(_ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int) {
+    init(_ node: SCNNode, isMobile: Bool, mass: CGFloat, isAffectedByGravity: Bool, isTemporary: Bool, physicsBody: SCNPhysicsBody, collisionBitMask: Int, contactBitMask: Int, rotationOffsets: SCNVector3 = SCNVector3(0.0, 0.0, 0.0)) {
         self.node = node
         self.isMobile = isMobile
         self.isTemporary = isTemporary
+        self.rotationOffsets = rotationOffsets
 
         node.physicsBody = physicsBody
         node.physicsBody?.mass = mass
@@ -17,7 +19,7 @@ class Entity {
     }
     
     public func getPosition() -> SCNVector3 {
-        return node.presentation.position
+        return node.position
     }
     
     public func getTimeCount() -> UInt64 {
@@ -72,17 +74,19 @@ class Entity {
             }
             self.modifyTarget()
             
-            if isMobile, let target = target {
-                let nodeCol = node.presentation.position
-                let distRaw = SCNVector3(target.x - nodeCol.x, target.y - nodeCol.y, target.z - nodeCol.z - minZDist)
+            if isMobile, let target = target, let lookAtPoint = lookAtPoint {
+                let nodePos = node.position
+                let distRaw = SCNVector3(target.x - nodePos.x, target.y - nodePos.y, target.z - nodePos.z - minZDist)
                 let dist = (distRaw.x * distRaw.x + distRaw.y * distRaw.y + distRaw.z * distRaw.z).squareRoot()
-                let speedFactor = (abs(dist) < distBuffer ? 0.0 : speed / dist)
+                let speedFactor = (abs(dist) < distBuffer ? 0.0 : speed / dist / ViewController.FPS)
                 if isTemporary && speedFactor == 0.0 {
                     die()
                 }
-                // TODO: Make moving entity face target.
-                node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
-                //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1)
+                node.position = SCNVector3(nodePos.x + distRaw.x * speedFactor, nodePos.y + distRaw.y * speedFactor, nodePos.z + distRaw.z * speedFactor)
+                let distRawFromLookAtPoint = SCNVector3(lookAtPoint.x - nodePos.x, lookAtPoint.y - nodePos.y, lookAtPoint.z - nodePos.z)
+                node.eulerAngles = SCNVector3(sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.x, sin(distRawFromLookAtPoint.x / distRawFromLookAtPoint.z) + rotationOffsets.y, sin(distRawFromLookAtPoint.y / distRawFromLookAtPoint.x) + rotationOffsets.z)
+                //node.physicsBody?.velocity = SCNVector3(distRaw.x * speedFactor, distRaw.y * speedFactor, distRaw.z * speedFactor)
+                //node.physicsBody?.angularVelocity = SCNVector4(0.0, 1.0, 0.0, 1.0)
             }
         }
     }
@@ -103,6 +107,8 @@ class Entity {
 
     // Rotation
     private var isRotating: Bool = false
+    public var lookAtPoint: SCNVector3?
+    private var rotationOffsets: SCNVector3 // Offsets to make entity face forwards.
 
     // SCNNode
     private var node: SCNNode
