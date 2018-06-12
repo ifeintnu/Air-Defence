@@ -20,10 +20,21 @@
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFE-jl-pkC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="2kW-mh-eYH" appends="YES" id="frI-4K-6hb"/>
+                                    <outletCollection property="gestureRecognizers" destination="Avs-vd-IPs" appends="YES" id="eLm-hO-oPa"/>
+                                    <outletCollection property="gestureRecognizers" destination="yv6-Dc-epZ" appends="YES" id="dZX-Od-n3S"/>
+                                    <outletCollection property="gestureRecognizers" destination="H9v-Jc-mhR" appends="YES" id="qeh-hp-UId"/>
+                                    <outletCollection property="gestureRecognizers" destination="8zh-tX-YvD" appends="YES" id="kf2-ie-aGy"/>
+                                </connections>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI0-kD-7md">
                                 <rect key="frame" x="67" y="253" width="240" height="160"/>
                                 <state key="normal" image="sight"/>
+                                <connections>
+                                    <action selector="touchSight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ykm-IX-tr2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkc-cv-vZX">
                                 <rect key="frame" x="277" y="572" width="78" height="55"/>
@@ -50,7 +61,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ey6-Px-sji"/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="tfs-Tv-Wrm" appends="YES" id="Prk-tg-89U"/>
+                            <outletCollection property="gestureRecognizers" destination="Avs-vd-IPs" appends="YES" id="4Ig-F7-QXN"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="8uM-Oq-Vke"/>
@@ -59,9 +70,29 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="up" id="tfs-Tv-Wrm">
+                <swipeGestureRecognizer direction="up" id="2kW-mh-eYH" userLabel="SwipeUp">
                     <connections>
-                        <action selector="swipeUpGesture:" destination="BV1-FR-VrT" id="azO-FQ-lYF"/>
+                        <action selector="SwipeUp:" destination="BV1-FR-VrT" id="pdx-Be-wwy"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="Avs-vd-IPs">
+                    <connections>
+                        <action selector="SwipeDown:" destination="BV1-FR-VrT" id="UzQ-xb-z5V"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <rotationGestureRecognizer rotation="1" id="yv6-Dc-epZ">
+                    <connections>
+                        <action selector="Rotation:" destination="BV1-FR-VrT" id="7LU-YP-68l"/>
+                    </connections>
+                </rotationGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="H9v-Jc-mhR" userLabel="Right">
+                    <connections>
+                        <action selector="SwipeRight:" destination="BV1-FR-VrT" id="aST-JR-c5F"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="8zh-tX-YvD" userLabel="Left">
+                    <connections>
+                        <action selector="SwipeLeft:" destination="BV1-FR-VrT" id="mL7-S1-vN6"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

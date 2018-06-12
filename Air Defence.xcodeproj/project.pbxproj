@@ -18,6 +18,7 @@
 		3FC1401820CAF8D6009D6196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401720CAF8D6009D6196 /* Assets.xcassets */; };
 		3FC1401B20CAF8D6009D6196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FC1401920CAF8D6009D6196 /* LaunchScreen.storyboard */; };
 		3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1402420CB06F0009D6196 /* EnemyShip.swift */; };
+		3FF43BF220D01DFD00EA2D55 /* Flare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF43BF120D01DFC00EA2D55 /* Flare.swift */; };
 		B60261E520CEA1C000FBA070 /* sight.png in Resources */ = {isa = PBXBuildFile; fileRef = B60261E420CEA1C000FBA070 /* sight.png */; };
 		CE3B2E1620CE646100A5BF0C /* OverlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B2E1520CE646100A5BF0C /* OverlayScene.swift */; };
 		CE3B2E1820CE6DC600A5BF0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE3B2E1720CE6DC600A5BF0C /* GoogleService-Info.plist */; };
@@ -38,6 +39,7 @@
 		3FC1401A20CAF8D6009D6196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FC1401C20CAF8D6009D6196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FC1402420CB06F0009D6196 /* EnemyShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
+		3FF43BF120D01DFC00EA2D55 /* Flare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flare.swift; sourceTree = "<group>"; };
 		7DDCDD8003BBA1F89E598DE1 /* Pods-Air Defence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.release.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.release.xcconfig"; sourceTree = "<group>"; };
 		B60261E420CEA1C000FBA070 /* sight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sight.png; sourceTree = "<group>"; };
 		C3F8FB64A38D5026FB8112AB /* Pods-Air Defence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Defence.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Air Defence/Pods-Air Defence.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				3FC1401020CAF8D5009D6196 /* art.scnassets */,
 				3FC1402420CB06F0009D6196 /* EnemyShip.swift */,
 				3FB42D9820CC30A700E3AE01 /* Entity.swift */,
+				3FF43BF120D01DFC00EA2D55 /* Flare.swift */,
 				3FB42D9620CC2E1C00E3AE01 /* Projectile.swift */,
 				3FC1401220CAF8D5009D6196 /* ViewController.swift */,
 				CEFAB38F20D034A000B88DF3 /* RankTableViewController.swift */,
@@ -243,6 +246,7 @@
 			files = (
 				3FB42D9720CC2E1C00E3AE01 /* Projectile.swift in Sources */,
 				3FB42D9920CC30A700E3AE01 /* Entity.swift in Sources */,
+				3FF43BF220D01DFD00EA2D55 /* Flare.swift in Sources */,
 				3FC1401320CAF8D5009D6196 /* ViewController.swift in Sources */,
 				3FC1400F20CAF8D5009D6196 /* AppDelegate.swift in Sources */,
 				3FC1402520CB06F0009D6196 /* EnemyShip.swift in Sources */,
@@ -393,14 +397,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B34533U9Q2;
+				DEVELOPMENT_TEAM = 76794A944C;
 				INFOPLIST_FILE = "Air Defence/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "txshon.Air-Defence";
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -420,7 +424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence-";
+				PRODUCT_BUNDLE_IDENTIFIER = "tw.edu.ntu.Air-Defence";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
