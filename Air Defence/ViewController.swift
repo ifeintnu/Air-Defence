@@ -92,10 +92,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         let end = Missile.end
         let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
         let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Missile(origin: origin, target: target, reversed: true))
-        score=score - 1
-        self.ref.child("history").setValue(["score": score])
-        self.spriteScene.score = self.spriteScene.score - 1
+        addEntity(Missile(origin: origin, target: target, enemy: false, reversed: true))
+        updateScore(delta: -1)
     }
     
     public func getCameraVector() -> (SCNVector3, SCNVector3) {
@@ -132,17 +130,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     for entity in entities {
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
-                            score=score + 5
-                        if(score>userHighScore){
-                                userHighScore = score
-                            }
-                            let scores = self.ref.child("scores");
-                            scores.child(userID).setValue([
-                                "name"      : userName  ,
-                                "score"     : score     ,
-                                "highScore" : userHighScore
-                                ])
-                            self.spriteScene.score = score
                             deadEntities.append(entity)
                         }
                         else {
@@ -151,6 +138,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                     }
                     entities = newEntities
                 }
+                updateScore(delta: 20)
             }
             else if nodeA.physicsBody?.categoryBitMask == Missile.bitMask && nodeB.physicsBody?.categoryBitMask == Flare.bitMask {
                 print("Flare collision.")
@@ -195,36 +183,45 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if worldIsSetUp {
-            var numEnemyShips: Int = 0
-            for entity in pendingEntities {
-                sceneView.scene.rootNode.addChildNode(entity.getNode())
-                if entity.isEnemy {
-                    numEnemyShips += 1
-                }
-            }
-            var newEntities: [Entity] = pendingEntities
-            pendingEntities = []
-            for entity in entities {
-                if entity.dead() {
-                    deadEntities.append(entity)
-                }
-                else {
-                    entity.update(self)
-                    newEntities.append(entity)
-                    if entity.isEnemy {
+            if userID != "" {
+                var numEnemyShips: Int = 0
+                for entity in pendingEntities {
+                    if let node = entity.getNode() {
+                        sceneView.scene.rootNode.addChildNode(node)
+                    }
+                    if entity.isEnemyShip() {
                         numEnemyShips += 1
                     }
                 }
-            }
-            entities = newEntities
-            newEntities = []
-            for entity in deadEntities {
-                entity.remove()
-            }
-            if numEnemyShips == 0, let currentFrame = sceneView.session.currentFrame {
-                level += 5
-                for _ in 0..<level {
-                    addEntity(EnemyShip(currentFrame))
+                var newEntities: [Entity] = pendingEntities
+                pendingEntities = []
+                for entity in entities {
+                    if entity.isDead() {
+                        deadEntities.append(entity)
+                    }
+                    else {
+                        entity.update(self)
+                        newEntities.append(entity)
+                        if entity.isEnemy() {
+                            numEnemyShips += 1
+                        }
+                    }
+                }
+                entities = newEntities
+                newEntities = []
+                for entity in deadEntities {
+                    entity.remove()
+                    if entity.isEnemy() && entity.reachedTarget() {
+                        playSound(sound: .explosion)
+                        updateScore(delta: -5)
+                    }
+                }
+                deadEntities = []
+                if numEnemyShips == 0, let currentFrame = sceneView.session.currentFrame {
+                    level += 5
+                    for _ in 0..<level {
+                        addEntity(EnemyShip(currentFrame))
+                    }
                 }
             }
         }
@@ -250,16 +247,26 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     private func setUpWorld() {
         if EnemyShip.scene != nil && Missile.scene != nil {
-            let geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.0)
-            let node = SCNNode(geometry: geometry)
-            node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: geometry, options: nil))
-            node.position = SCNVector3(0.0, 0.0, 1.0)
             worldIsSetUp = true
         }
     }
     
     override var shouldAutorotate: Bool {
         return false
+    }
+    
+    private func updateScore(delta: Int) {
+        score=score + delta
+        if(score>userHighScore){
+            userHighScore = score
+        }
+        let scores = self.ref.child("scores");
+        scores.child(userID).setValue([
+            "name"      : userName  ,
+            "score"     : score     ,
+            "highScore" : userHighScore
+            ])
+        self.spriteScene.score = score
     }
     
     override func viewDidLoad() {

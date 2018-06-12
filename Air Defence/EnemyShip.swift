@@ -16,8 +16,7 @@ class EnemyShip : Entity {
         zDelta = Float(arc4random_uniform(5)) - 2.5
         let zStart = Float(arc4random_uniform(100)) - 110.0
         node.position = SCNVector3(xDelta, yDelta, zStart)
-        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Missile.bitMask, rotationOffsets: SCNVector3(0.0, 0.5 * Float.pi, 0.0))
-        super.isEnemy = true
+        super.init(node, isMobile: true, mass: 1.0, isAffectedByGravity: false, isTemporary: false, physicsBody: SCNPhysicsBody(type: .dynamic, shape: nil), collisionBitMask: bitMask, contactBitMask: Missile.bitMask, rotationOffsets: SCNVector3(0.0, 0.5 * Float.pi, 0.0), enemy: true)
     }
     
     private func fire(_ view: ViewController, target: SCNVector3) {
@@ -28,7 +27,7 @@ class EnemyShip : Entity {
         let distRawNormalised = SCNVector3(distRaw.x / dist, distRaw.y / dist, distRaw.z / dist)
         let start: Float = 1.75
         let origin = SCNVector3(nodePos.x + distRawNormalised.x * start, nodePos.y + distRawNormalised.y * start, nodePos.z + distRawNormalised.z * start)
-        view.addEntity(Missile(origin: origin, target: target))
+        view.addEntity(Missile(origin: origin, target: target, enemy: true))
     }
     
     override public func update(_ view: ViewController) {

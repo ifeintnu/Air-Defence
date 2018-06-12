@@ -10,11 +10,7 @@ class Flare : Entity {
         let node = SCNNode(geometry: geometry)
         node.position = origin
         let bitMask = Flare.bitMask
-        super.init(node, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: geometry, options: nil)), collisionBitMask: bitMask, contactBitMask: Missile.bitMask, rotationOffsets: SCNVector3(0.0, 0.0, 0.0), rotationallyFixed: true)
-        super.minZDist = 0.0
-        super.speed = 7.5
-        super.target = target
-        super.lookAtPoint = target
+        super.init(node, isMobile: true, mass: 0.1, isAffectedByGravity: false, isTemporary: true, physicsBody: SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: geometry, options: nil)), collisionBitMask: bitMask, contactBitMask: Missile.bitMask, rotationOffsets: SCNVector3(0.0, 0.0, 0.0), enemy: false, rotationallyFixed: true, lookAtPoint: target, minZDist: 0.0, speed: 7.5, target: target)
         super.startRotating()
     }
     
