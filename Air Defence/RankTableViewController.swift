@@ -85,7 +85,7 @@ class RankTableViewController: UITableViewController {
 //        print(indexPath)
 //         Configure the cell...
         
-        let newScore = arr[indexPath.row]["score"] as! Int
+        let newScore = arr[indexPath.row]["highScore"] as! Int
         let scoreString = String(newScore)
         cell.textLabel?.text = scoreString
         cell.detailTextLabel?.text = arr[indexPath.row]["name"] as! String

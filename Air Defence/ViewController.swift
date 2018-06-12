@@ -10,6 +10,7 @@ import FBSDKLoginKit
 var score = 0
 var userID = ""
 var userName = ""
+var userHighScore = 0
 var arr = [NSDictionary]()
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
@@ -90,11 +91,15 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
                             score=score + 5
+                            if(score>userHighScore){
+                                userHighScore = score
+                            }
 //                            self.ref.child("history").setValue(["score": score])
                             let scores = self.ref.child("scores");
                             scores.child(userID).setValue([
-                                "name"  : userName  ,
-                                "score" : score
+                                "name"      : userName  ,
+                                "score"     : score     ,
+                                "highScore" : userHighScore
                                 ])
                             self.spriteScene.score = score
                             
@@ -219,52 +224,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         sceneView.scene = SCNScene()
 
         
-        ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
-            //                                (scores).queryOrdered(byChild: "score")
-            //                            print(scoreQuery)
-            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            //                                print(snapshot.value?)
-            //                                let value = snapshot.value as? NSDictionary
-            //                                print(value!)
-            //                                let username = value?["score"] as? Int ?? 0
-            //                                let user = User(username: username)
-            //                                print(username)
-            arr = [NSDictionary]()
-            let dic = snapshot.value as? NSDictionary
-            print(dic!)
-            
-            for (key,value) in dic! {
-                print("\(key) : \(value)")
-                var childDic = value as? NSDictionary
-                //                                                childDic["name"]!
-                //                                                childDic!["name"]    = childDic!["name"] as! String
-                //                                                print(name)
-                //                                                childDic["score"] = childDic["score"] as Int
-                var appendIndex = -1
-                for (index, element) in arr.enumerated(){
-                    print(index)
-                    print(element["score"]!)
-                    let e = element["score"] as! Int
-                    let c = childDic!["score"] as! Int
-                    if(e<c){
-                        appendIndex = index
-                    }
-                }
-                if(appendIndex>=0){
-                    arr.insert(childDic!, at: appendIndex)
-                }else{
-                    arr.append(childDic!)
-                }
-            }
-            //                                            arr = arr.sort(by: {$0.score > $1.score})
-//            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
-            print(arr)
-            
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+        
 
         //FBSDK
 //        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
@@ -287,13 +247,13 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 else
                 {
                     let tmp = result as! [String: AnyObject]
-                    print("###################")
-                    print(tmp["first_name"]!)
-                    print("###################")
+//                    print("###################")
+//                    print(tmp["first_name"]!)
+//                    print("###################")
                     userName    = tmp["first_name"] as! String
                     userID      = tmp["id"]         as! String
-                    print(userID)
-                    print("###################")
+//                    print(userID)
+//                    print("###################")
                 }
             })
         }
@@ -307,6 +267,83 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             loginView.readPermissions = ["public_profile", "email", "user_friends"]
 //            loginView.delegate = self
 //        }
+        
+        //Firebase make score to zero
+        
+//        let scores = self.ref.child("scores");
+//        scores.child(userID).setValue([
+////            "name"      : userName  ,
+//            "score"     : 0     ,
+////            "highScore" : userHighScore
+//        ])
+        
+        
+        
+        //Firebase  get data
+        ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
+            //                                (scores).queryOrdered(byChild: "score")
+            //                            print(scoreQuery)
+            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            //                                print(snapshot.value?)
+            //                                let value = snapshot.value as? NSDictionary
+            //                                print(value!)
+            //                                let username = value?["score"] as? Int ?? 0
+            //                                let user = User(username: username)
+            //                                print(username)
+            arr = [NSDictionary]()
+            let dic = snapshot.value as? NSDictionary
+//            print(dic!)
+            
+            for (key,value) in dic! {
+//                print("\(key) : \(value)")
+                
+                
+                
+                
+                var childDic = value as? NSDictionary
+                var keyString = key as! String
+                
+                if(keyString == userID){
+//                    print(childDic!["highScore"]!)
+                    userHighScore = childDic!["highScore"]  as! Int
+                    score         = childDic!["score"]      as! Int
+                }
+                
+                //                                                childDic["name"]!
+                //                                                childDic!["name"]    = childDic!["name"] as! String
+                //                                                print(name)
+                //                                                childDic["score"] = childDic["score"] as Int
+                var appendIndex = -1
+                for (index, element) in arr.enumerated(){
+//                    print(index)
+//                    print(element["score"]!)
+                    
+                    let e = element["highScore"] as! Int
+                    let c = childDic!["highScore"] as! Int
+                    if(e<c){
+                        appendIndex = index
+                    }
+                }
+                if(appendIndex>=0){
+                    arr.insert(childDic!, at: appendIndex)
+                }else{
+                    arr.append(childDic!)
+                }
+            }
+            //                                            arr = arr.sort(by: {$0.score > $1.score})
+            //            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
+//            print(arr)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
+        
+        
+        
         
         // Set the view's delegates
         sceneView.delegate = self
