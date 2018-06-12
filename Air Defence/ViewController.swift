@@ -8,6 +8,10 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 var score = 0
+var userID = ""
+var userName = ""
+var userHighScore = 0
+var arr = [NSDictionary]()
 
 class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDelegate {
     
@@ -129,8 +133,16 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                         if entity.getID() == nameA || entity.getID() == nameB {
                             entity.die()
                             score=score + 5
-                            self.ref.child("history").setValue(["score": score])
-                            self.spriteScene.score = self.spriteScene.score + 5
+                        if(score>userHighScore){
+                                userHighScore = score
+                            }
+                            let scores = self.ref.child("scores");
+                            scores.child(userID).setValue([
+                                "name"      : userName  ,
+                                "score"     : score     ,
+                                "highScore" : userHighScore
+                                ])
+                            self.spriteScene.score = score
                             deadEntities.append(entity)
                         }
                         else {
@@ -264,9 +276,16 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
             worldIsSetUp = true
         }
     }
+//    override func viewWillAppear() {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.navigationBarHidden = true
+//    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = true
+        
         
         
         
@@ -274,28 +293,128 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         
         // Set the scene to the view
         sceneView.scene = SCNScene()
-        
-        
         //FBSDK
         //        let loginButton = FBSDKLoginButton(readPermissions: [ .publicProfile ])
         //        loginButton.center = sceneView.center
         //
         //        sceneView.addSubview(loginButton)
         
-        //        if (FBSDKAccessToken.current() != nil)
-        //        {
-        //            // User is already logged in, do work such as go to next view controller.
-        //        }
-        //        else
-        //        {
-        let loginView : FBSDKLoginButton = FBSDKLoginButton()
-        self.view.addSubview(loginView)
-        //            loginView.center = self.view.center
-        loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 50
-        loginView.frame.origin.x = 10
-        loginView.readPermissions = ["public_profile", "email", "user_friends"]
-        //            loginView.delegate = self
-        //        }
+        if (FBSDKAccessToken.current() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+            let graphRequest:FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"first_name,email, picture.type(large)"])
+            
+            graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+                
+                if ((error) != nil)
+                {
+                    // Process error
+                    print("Error: \(error)")
+                }
+                else
+                {
+                    let tmp = result as! [String: AnyObject]
+//                    print("###################")
+//                    print(tmp["first_name"]!)
+                    print("###################")
+                    userName    = tmp["first_name"] as! String
+                    userID      = tmp["id"]         as! String
+                    print(userID)
+//                    let scores = self.ref.child("scores");
+//                    scores.child(userID).setValue([
+//                        "score"     : 0
+//                    ])
+                    print("###################")
+                }
+            })
+        }
+//        else
+//        {
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+//            loginView.center = self.view.center
+            loginView.frame.origin.y = self.view.frame.height - loginView.frame.height - 50
+            loginView.frame.origin.x = 10
+            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+//            loginView.delegate = self
+//        }
+        
+        //Firebase make score to zero
+//        print(userID)
+//        let scores = self.ref.child("scores");
+//        scores.child(userID).setValue([
+////            "name"      : userName  ,
+//            "score"     : 0     ,
+////            "highScore" : userHighScore
+//        ])
+        
+        
+        
+        //Firebase  get data
+        ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
+            //                                (scores).queryOrdered(byChild: "score")
+            //                            print(scoreQuery)
+            //                            scoreQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            //                                print(snapshot.value?)
+            //                                let value = snapshot.value as? NSDictionary
+            //                                print(value!)
+            //                                let username = value?["score"] as? Int ?? 0
+            //                                let user = User(username: username)
+            //                                print(username)
+            arr = [NSDictionary]()
+            let dic = snapshot.value as? NSDictionary
+//            print(dic!)
+            
+            for (key,value) in dic! {
+//                print("\(key) : \(value)")
+                
+                
+                
+                
+                var childDic = value as? NSDictionary
+                var keyString = key as! String
+                
+                if(keyString == userID){
+//                    print(childDic!["highScore"]!)
+                    userHighScore = childDic!["highScore"]  as! Int
+                    score         = childDic!["score"]      as! Int
+                }
+                
+                //                                                childDic["name"]!
+                //                                                childDic!["name"]    = childDic!["name"] as! String
+                //                                                print(name)
+                //                                                childDic["score"] = childDic["score"] as Int
+                var appendIndex = -1
+                for (index, element) in arr.enumerated(){
+//                    print(index)
+//                    print(element["score"]!)
+                    
+                    let e = element["highScore"] as! Int
+                    let c = childDic!["highScore"] as! Int
+                    if(e<c){
+                        appendIndex = index
+                    }
+                }
+                if(appendIndex>=0){
+                    arr.insert(childDic!, at: appendIndex)
+                }else{
+                    arr.append(childDic!)
+                }
+            }
+            //                                            arr = arr.sort(by: {$0.score > $1.score})
+            //            arr = arr.sort(by: {$0["score"] as! Int > $1["score"] as! Int})
+//            print(arr)
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
+        
+        
+        
         
         // Set the view's delegates
         sceneView.delegate = self
@@ -325,6 +444,56 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         EnemyShip.scene = SCNScene(named: "art.scnassets/enemy_ship.scn")!
         Missile.scene = SCNScene(named: "art.scnassets/missile.scn")!
     }
+   
+    
+    //function is fetching the user data
+//    func getFBUserData(){
+//        if((FBSDKAccessToken.current()) != nil){
+//            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+//                if (error == nil){
+//                    self.dict = result as! [String : AnyObject]
+//                    print(result!)
+//                    print(self.dict)
+//                }
+//            })
+//        }
+//    }
+    
+    //fb user detail
+//    func getDetails(){
+//        guard let _ = AccessToken.current else{return}
+//        let param = ["fields":"name, email , gender , picture.width(640).height(480)"]
+//        let graphRequest = FBSDKGraphRequest(graphPath: "me",parameters: param)
+//        graphRequest.start { (urlResponse, requestResult) in
+//            switch requestResult{
+//            case .failed(let error):
+//                print(error)
+//            case .success(response: let graphResponse):
+//                if let responseDictionary = graphResponse.dictionaryValue{
+//                    let name = responseDictionary["name"] as! String
+//                    print(name)
+////                    let gender = responseDictionary["gender"] as! String
+////                    if let photo = responseDictionary["picture"] as? NSDictionary{
+////                        let data = photo["data"] as! NSDictionary
+////                        let picURL = data["url"] as! String
+////                        print(name , gender , picURL)
+////
+////                        DispatchQueue.global().async {
+////                            let imgData = NSData(contentsOf: URL(string: picURL)!)
+////
+////                            DispatchQueue.main.async {
+////                                self.nameLabel.text = name
+////                                self.genderLabel.text = gender
+////                                let userImage = UIImage(data: imgData! as Data)
+////                                self.photoImgView.image = userImage
+////                            }
+////                        }
+////                    }
+//
+//                }
+//            }
+//        }
+//    }
     
     //    @objc func loginButtonClicked() {
     //        let loginManager = FBSDKLoginManager()
@@ -342,6 +511,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
