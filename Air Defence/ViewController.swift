@@ -160,7 +160,6 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 updateScore(delta: 20)
             }
             else if nodeA.physicsBody?.categoryBitMask == Missile.bitMask && nodeB.physicsBody?.categoryBitMask == Flare.bitMask {
-                print("Flare collision.")
                 if let particleSystem = SCNParticleSystem(named: "explosion", inDirectory: "art.scnassets") {
                     playSound(sound: .explosion)
                     let explosionNode = SCNNode()
