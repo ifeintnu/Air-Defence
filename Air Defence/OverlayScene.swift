@@ -1,11 +1,3 @@
-//
-//  OverlayScene.swift
-//  Air Defence
-//
-//  Created by user on 2018/6/11.
-//  Copyright © 2018年 NTU. All rights reserved.
-//
-
 import UIKit
 import SpriteKit
 
@@ -30,7 +22,7 @@ class OverlayScene: SKScene {
         //        self.pauseNode.size = CGSize(width: spriteSize, height: spriteSize)
         //        self.pauseNode.position = CGPoint(x: spriteSize + 8, y: spriteSize + 8)
         
-        self.scoreNode = SKLabelNode(text: "Score: \(score)")
+        self.scoreNode = SKLabelNode(text: "Loading...")
         self.scoreNode.fontName = "DINAlternate-Bold"
         self.scoreNode.fontColor = UIColor.red
         self.scoreNode.fontSize = 36

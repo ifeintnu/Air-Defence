@@ -1,10 +1,3 @@
-//
-//  RankTableViewController.swift
-//  
-//
-//  Created by user on 2018/6/12.
-//
-
 import UIKit
 
 class RankTableViewController: UITableViewController {

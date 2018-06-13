@@ -18,10 +18,25 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     @IBOutlet weak var logoutBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBAction func ClickLogout(_ sender: Any) {
+        loggedIn = false
         userID = ""
         userName = ""
         score = 100
         userHighScore = 100
+
+        // Reset world.
+        pendingEntities = []
+        for entity in entities {
+            entity.die()
+            deadEntities.append(entity)
+        }
+        entities = []
+        for entity in deadEntities {
+            entity.remove()
+        }
+        deadEntities = []
+        level = 0
+        worldIsSetUp = false
         
         UserDefaults.standard.set("", forKey: "userID")
         
@@ -78,22 +93,26 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     }
     
     func fireFlare(){
-        let (direction, position) = getCameraVector()
-        let start = Flare.start
-        let end = Flare.end
-        let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
-        let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Flare(origin: origin, target: target))
+        if loggedIn {
+            let (direction, position) = getCameraVector()
+            let start = Flare.start
+            let end = Flare.end
+            let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
+            let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
+            addEntity(Flare(origin: origin, target: target))
+        }
     }
     
     func fireMissile(){
-        let (direction, position) = getCameraVector()
-        let start = Missile.start
-        let end = Missile.end
-        let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
-        let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
-        addEntity(Missile(origin: origin, target: target, enemy: false, reversed: true))
-        updateScore(delta: -1)
+        if loggedIn {
+            let (direction, position) = getCameraVector()
+            let start = Missile.start
+            let end = Missile.end
+            let origin = SCNVector3(position.x + direction.x * start, position.y + direction.y * start, position.z + direction.z * start)
+            let target = SCNVector3(position.x + direction.x * end, position.y + direction.y * end, position.z + direction.z * end)
+            addEntity(Missile(origin: origin, target: target, enemy: false, reversed: true))
+            updateScore(delta: -1)
+        }
     }
     
     public func getCameraVector() -> (SCNVector3, SCNVector3) {
@@ -183,7 +202,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if worldIsSetUp {
-            if userID != "" {
+            if loggedIn {
                 var numEnemyShips: Int = 0
                 for entity in pendingEntities {
                     if let node = entity.getNode() {
@@ -246,7 +265,8 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     }
     
     private func setUpWorld() {
-        if EnemyShip.scene != nil && Missile.scene != nil {
+        if EnemyShip.scene != nil && Missile.scene != nil && loggedIn && userDataRetrieved {
+            updateScore(delta: 0)
             worldIsSetUp = true
         }
     }
@@ -278,11 +298,13 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         userName = UDUserName
         
         if(userID != ""){
+            loggedIn = true
             AlertLoginBtn.isHidden  = true
             LabelName.text          = userName
             loginBtn.isHidden       = true
             logoutBtn.isHidden      = false
         }else{
+            loggedIn = false
             LabelName.isHidden  = true
             loginBtn.isHidden   = false
             logoutBtn.isHidden  = true
@@ -296,8 +318,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         sceneView.scene = SCNScene()
 
         if(userID == ""){
-            
-            
+            userDataRetrieved = true
             if (FBSDKAccessToken.current() != nil)
             {
                 // User is already logged in, do work such as go to next view controller.
@@ -336,7 +357,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 loginView.frame.origin.x = 10
                 loginView.readPermissions = ["public_profile", "email", "user_friends"]
         }
-        
+
         //Firebase  get data
         ref.child("scores").queryOrdered(byChild: "score").observe(.value, with: { (snapshot) in
 
@@ -351,6 +372,7 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
                 if (keyString == userID) {
                     userHighScore = childDic!["highScore"]  as! Int
                     score         = childDic!["score"]      as! Int
+                    self.userDataRetrieved = true
                 }
                 arr.append(childDic!)
             }
@@ -401,11 +423,13 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
         userName = UDUserName
         
         if(userID != ""){
+            loggedIn = true
             AlertLoginBtn.isHidden  = true
             LabelName.text          = userName
             loginBtn.isHidden       = true
             logoutBtn.isHidden      = false
         }else{
+            loggedIn = false
             LabelName.isHidden  = true
             loginBtn.isHidden   = false
             logoutBtn.isHidden  = true
@@ -436,9 +460,11 @@ class ViewController: UIViewController, SCNPhysicsContactDelegate, ARSCNViewDele
     private var entities: [Entity] = []
     private var entityCounter: Int = 0
     private var level: Int = 0
+    private var loggedIn: Bool = false
     private var pendingEntities: [Entity] = []
     private var deadEntities: [Entity] = []
     private var soundPlayer: AVAudioPlayer?
+    private var userDataRetrieved: Bool = false
     private var worldIsSetUp: Bool = false
     
     private enum Sound: String {
