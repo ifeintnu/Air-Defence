@@ -1,27 +1,22 @@
-To do list:
+Air Defence Readme
 
-全場計分:
+Original Repository URL: https://github.com/jackyhobingo/ARwar/
+Updated Repository URL:  https://github.com/ifeintnu/Air-Defence/
 
-4. 計分
-5. 分數統計表 和別人比較分數
-6. 遊戲倒數計時
+Members
+何驊益 (R06944024)
+曾郁翔 (M10615104)
+鍾益飛 (ntnu_40347046S)
 
-敵方:
+Introduction
+   AiR Defence is an iOS game that utilises augmented reality to give you the impression that enemy aircraft are zeroing in on your location and attacking you. You must defend yourself using your missiles and flares, with in-game scores being calculated based on the number of missiles you use, the number of times you are hit by enemy projectiles, and the number of enemies that are destroyed.
 
-1. 產生飛機
-   在離遊戲者半徑 8 公尺 產生 10 架飛機 飛行方向針對遊戲者方向飛行 
-3. 被我方擊落
-9. 敵方進行攻擊 
-12. 產生地面敵人 e.g. 坦克 
+   Players can view their scores on the Rankings page and see how their scores stack up against other players'.
 
+Screenshots
+1. https://github.com/ifeintnu/Air-Defence/blob/master/screenshots/screenshot_01.jpg
+2. https://github.com/ifeintnu/Air-Defence/blob/master/screenshots/screenshot_02.jpg
+3. https://github.com/ifeintnu/Air-Defence/blob/master/screenshots/screenshot_02.jpg
 
-我方:
-
-2. 遊戲者發射子彈
-3. 子彈命中敵方
-7. 遊戲者子彈限制
-8. 遊戲者裝填子彈
-10. 防護罩功能
-11. 可以有多種武器 
-( e.g. 光束: 直線無重力 子彈:直線有重力 飛彈:有追蹤功能 核彈: 全場, 範圍傷害)
-13. 可以做自己的砲塔 (放在地上自動偵測敵人攻擊)
+Demo Video
+https://youtu.be/1nXGCZNH42o
