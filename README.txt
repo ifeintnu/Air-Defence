@@ -4,8 +4,8 @@ Original Repository URL: https://github.com/jackyhobingo/ARwar/
 Updated Repository URL:  https://github.com/ifeintnu/Air-Defence/
 
 Members
-何驊益 (R06944024)
-曾郁翔 (M10615104)
+何驊益 (ntust_M10615104)
+曾郁翔 (R06944024)
 鍾益飛 (ntnu_40347046S)
 
 Introduction
